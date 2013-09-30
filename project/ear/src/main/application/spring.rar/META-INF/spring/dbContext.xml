@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+	
+	<jee:jndi-lookup id="h2ConnectionFactory" jndi-name="java:jboss/datasources/ReportingXADS"/>
+	
+	<bean id="primaryDataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy" >
+		<property name="targetDataSource" ref="h2ConnectionFactory" />
+		<property name="reobtainTransactionalConnections" value="true" />
+	</bean>
+	
+	<bean id="dbInit" class="org.helios.jboss7.util.JDBCHelper" factory-method="getInstance" destroy-method="killDb">
+		<constructor-arg ref="h2ConnectionFactory" />
+		<constructor-arg value="RUNSCRIPT FROM 'C:/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
+	</bean>
+	
+		  <!--  Uncomment to enable remote access to the in-memory test database -->
+	  	<!-- 
+	    <bean id="H2WebServer" class="org.h2.tools.Server"
+	        factory-method="createWebServer" init-method="start" destroy-method="stop" >
+	        <constructor-arg value="-web,-webAllowOthers,true,-webPort,3082" />
+	    </bean>
+	    <bean id="H2TCPServer" class="org.h2.tools.Server"
+	        factory-method="createTcpServer" init-method="start" destroy-method="stop">
+	        <constructor-arg value="-tcp,-tcpAllowOthers,true,-tcpPort,3083" />
+	    </bean>
+		-->
+	
+	
+
+</beans>
