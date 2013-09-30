@@ -26,6 +26,13 @@
 	  	<artifactId>services</artifactId>
 	  	<version>${project.version}</version>
     </dependency>
+    
+	<dependency>
+	  <groupId>org.jvnet.opendmk</groupId>
+	  <artifactId>jmxremote_optional</artifactId>
+	  <version>1.0_01-ea</version>
+	</dependency>
+    
 
       <dependency>
 	<groupId>log4j</groupId>

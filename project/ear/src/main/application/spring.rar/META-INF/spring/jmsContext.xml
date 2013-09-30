@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+	
+	<jee:jndi-lookup id="jmsConnectionFactory" jndi-name="java:jboss/eis/Connection"/>
+	<jee:jndi-lookup id="requestQueue" jndi-name="java:jboss/jms/dest/requestQueue"/>	
+	<jee:jndi-lookup id="clearingTopic" jndi-name="java:jboss/jms/dest/clearingTopic"/>
+	
+	<bean id="txJmsConnectionFactory" class="org.springframework.jms.connection.TransactionAwareConnectionFactoryProxy">		
+		<property name="targetConnectionFactory" ref="jmsConnectionFactory" />
+	</bean>
+	
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+   		<constructor-arg ref="txJmsConnectionFactory"/>
+   		<property name="receiveTimeout" value="1000" />
+   		<property name="sessionTransacted" value="true" />   		
+	</bean>
+	
+	<bean id="clearingTopicListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="txJmsConnectionFactory"/>
+    	<property name="destination" ref="clearingTopic"/>
+    	<property name="messageListener" ref="clearingTopicProcessor" />
+    	<property name="transactionManager" ref="txManager"/>
+	</bean>
+	
+	<bean id="clearingTopicProcessor" class="org.helios.jboss7.jms.mdb.SpringMDB"/>
+	
+
+</beans>

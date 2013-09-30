@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       "  >
+
+
+	<context:annotation-config/>
+	<context:mbean-export registration="replaceExisting" />
+	
+	<bean id="MBeanServer" class="java.lang.management.ManagementFactory"
+		lazy-init="false" factory-method="getPlatformMBeanServer">
+	</bean>
+	
+	
+
+	<bean id="JMXMPURL" class="javax.management.remote.JMXServiceURL">
+		<constructor-arg value="service:jmx:jmxmp://0.0.0.0:8006" />
+	</bean>
+
+      <bean id="JMXMPServer" class="javax.management.remote.jmxmp.JMXMPConnectorServer" init-method="start" destroy-method="stop">
+	<constructor-arg ref="JMXMPURL"/>
+	<constructor-arg ><map /></constructor-arg >
+	<constructor-arg ref="MBeanServer" />
+
+      </bean>
+
+	
+	<bean id="JMXMPJMXExporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="beans">
+			<map>
+				<entry key="org.helios.jmx:service=JMXConnectorServer,protocol=jmxmp" value-ref="JMXMPServer" />
+			</map>
+		</property>
+		<property name="server" ref="MBeanServer" />
+	</bean>	  
+	
+
+</beans>	

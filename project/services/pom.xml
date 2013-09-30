@@ -102,9 +102,14 @@
 
       <dependency>
 	<groupId>org.springframework</groupId>
-	<artifactId>spring-orm</artifactId>
-	
+	<artifactId>spring-orm</artifactId>	
       </dependency>
+      
+      <dependency>
+	<groupId>org.codehaus.groovy</groupId>
+	<artifactId>groovy-all</artifactId>
+      </dependency>
+      
 
 
   </dependencies>

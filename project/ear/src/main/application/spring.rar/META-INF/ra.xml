@@ -12,7 +12,7 @@
                  <config-property>
                          <config-property-name>ContextConfigLocation</config-property-name>
                          <config-property-type>java.lang.String</config-property-type>
-                         <config-property-value>META-INF/applicationContext.xml</config-property-value>
+                         <config-property-value>META-INF/spring/applicationContext.xml</config-property-value>
                  </config-property>
          </resourceadapter>
  </connector>

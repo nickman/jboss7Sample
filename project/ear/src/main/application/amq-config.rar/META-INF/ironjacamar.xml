@@ -9,7 +9,7 @@
     <config-property name="BrokerXmlConfig">xbean:META-INF/broker.xml</config-property>
     <transaction-support>XATransaction</transaction-support>
     <connection-definitions>
-      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis2/Connection" pool-name="AMQConnectionPool" use-ccm="true" use-java-context="true" >
+      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis/Connection" pool-name="AMQConnectionPool" use-ccm="true" use-java-context="true" >
       <xa-pool>
           <min-pool-size>2</min-pool-size>
           <max-pool-size>10</max-pool-size>
@@ -29,7 +29,7 @@
           </recover-credential>
         </recovery>
       </connection-definition>
-      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis2/QueueConnection" pool-name="QueueConnection" use-ccm="true" use-java-context="true">
+      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis/QueueConnection" pool-name="QueueConnection" use-ccm="true" use-java-context="true">
         <xa-pool>
           <min-pool-size>0</min-pool-size>
           <max-pool-size>10</max-pool-size>
@@ -49,7 +49,7 @@
           </recover-credential>
         </recovery>
       </connection-definition>
-      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis2/TopicConnection" pool-name="TopicConnection" use-ccm="true" use-java-context="true">
+      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis/TopicConnection" pool-name="TopicConnection" use-ccm="true" use-java-context="true">
         <xa-pool>
           <min-pool-size>0</min-pool-size>
           <max-pool-size>10</max-pool-size>
