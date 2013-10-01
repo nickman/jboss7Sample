@@ -30,24 +30,24 @@
 	<context:mbean-export/>
 	
   	
-  	
-  	
-	<bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
-      <property name="brokerURL" value="vm://helios"/>
-   	</bean>
-
+	<bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
+		<property name="connectionFactory" ref="jmsConnectionFactory"/>		
+	</bean>
+	
+	<bean id="wmqJms" class="org.apache.camel.component.jms.JmsComponent">
+		<property name="connectionFactory" ref="wmqTxJmsConnectionFactory"/>		
+	</bean>
+	
+	
+	
    	
 	<camelContext xmlns="http://camel.apache.org/schema/spring" trace="false" id="HeliosContext" autoStartup="true"  >
-			
 		<camel:threadPoolProfile id="MulticastThreadPool" poolSize="5"  maxPoolSize="10" maxQueueSize="1000" />		
-		
-		
-	  	<route id="AMQAgentListener" autoStartup="true" >	  	
-	    	<from uri="activemq:topic:CLEARING.TOPIC" id="ClearingEventConsumer" />	
-	    	<to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" />
+	  	<route id="JMSListener" autoStartup="true" >	  	
+	    	<from uri="jms:topic:CLEARING.TOPIC" id="ClearingEventConsumer" />	
+	    	<to id="WMQClearingPublisher" uri="wmqJms:topic:CLEARING.TOPIC" />
+	    	<!-- <to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" /> -->	    	
 	  	</route>
-	  
-    	
 	</camelContext>
 	
 	<!-- Does not work in Java < 1.7 -->

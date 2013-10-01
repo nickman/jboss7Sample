@@ -15,18 +15,7 @@
     <!--
         The <broker> element is used to configure the ActiveMQ broker.
     -->
-    <broker xmlns="http://activemq.apache.org/schema/core" brokerName="helios" dataDirectory="/tmp/activemq/data">
- 
-        <!--
-            For better performances use VM cursor and small memory limit.
-            For more information, see:
- 
-            http://activemq.apache.org/message-cursors.html
- 
-            Also, if your producer is "hanging", it's probably due to producer flow control.
-            For more information, see:
-            http://activemq.apache.org/producer-flow-control.html
-        -->
+    <broker xmlns="http://activemq.apache.org/schema/core" brokerName="helios" dataDirectory="/tmp/activemq/data" persistent="false">
  
         <destinationPolicy>
             <policyMap>
@@ -75,12 +64,11 @@
             Configure message persistence for the broker. The default persistence
             mechanism is the KahaDB store (identified by the kahaDB tag).
             For more information, see:
- 
             http://activemq.apache.org/persistence.html
-        -->
         <persistenceAdapter>
             <kahaDB directory="/tmp/activemq/data/kahadb"/>
         </persistenceAdapter>
+        -->
  
  
           <!--
@@ -125,7 +113,7 @@
         -->
         <transportConnectors>
             <!-- DOS protection, limit concurrent connections to 1000 and frame size to 100MB -->
-            <transportConnector name="vm" uri="vm://localhost"/>
+            <transportConnector name="vm" uri="vm://helios?create=false"/>
              <transportConnector name="nio" uri="nio://0.0.0.0:51515"/>  
             <!-- <transportConnector name="websocket" uri="ws://0.0.0.0:61614"/> -->
             <transportConnector name="openwire" uri="tcp://0.0.0.0:61616?maximumConnections=1000&amp;wireFormat.maxFrameSize=104857600"/>

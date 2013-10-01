@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+
+
+<ejb-jar>
+	<enterprise-beans>
+ 
+ 		<!-- ================================================================================== -->
+ 		<!-- MDB listening on WebSphereMQ Clearing Event Topic                                  -->
+ 		<!-- ================================================================================== -->
+ 		
+		<message-driven>
+			<display-name>EJBXMLConfiguredMDB</display-name>
+			<ejb-name>EJBXMLConfiguredMDB</ejb-name>
+			<ejb-class>org.helios.jboss7.jms.mdb.EJBXMLConfiguredMDB</ejb-class>
+			<messaging-type>javax.jms.MessageListener</messaging-type>
+			<transaction-type>Container</transaction-type>
+			
+			<activation-config>				
+				<activation-config-property>
+					<activation-config-property-name>messagingType</activation-config-property-name>
+					<activation-config-property-value>javax.jms.MessageListener</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>destinationType</activation-config-property-name>
+					<activation-config-property-value>javax.jms.Topic</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>destination</activation-config-property-name>
+					<activation-config-property-value>java:jboss/jms/dest/WMQClearingTopic</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>useJNDI</activation-config-property-name>
+					<activation-config-property-value>true</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>transportType</activation-config-property-name>
+					<activation-config-property-value>CLIENT</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>channel</activation-config-property-name>
+					<activation-config-property-value>JBOSS.SVRCONN</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>hostName</activation-config-property-name>
+					<activation-config-property-value>localhost</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>port</activation-config-property-name>
+					<activation-config-property-value>1415</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>queueManager</activation-config-property-name>
+					<activation-config-property-value>NJW_QM</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>subscriptionDurability</activation-config-property-name>
+					<activation-config-property-value>NonDurable</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>subscriptionName</activation-config-property-name>
+					<activation-config-property-value>mySub</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>clientID</activation-config-property-name>
+					<activation-config-property-value>myClientId</activation-config-property-value>
+				</activation-config-property>			
+				<activation-config-property>
+					<activation-config-property-name>maxMessages</activation-config-property-name>
+					<activation-config-property-value>1</activation-config-property-value>
+				</activation-config-property>
+				<activation-config-property>
+					<activation-config-property-name>maxPoolDepth</activation-config-property-name>
+					<activation-config-property-value>1</activation-config-property-value>
+				</activation-config-property>				
+			</activation-config>
+		</message-driven>
+		
+	</enterprise-beans>
+</ejb-jar>
+
+
+

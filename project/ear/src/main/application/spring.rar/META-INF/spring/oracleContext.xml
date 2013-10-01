@@ -7,15 +7,14 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
-
-	<import resource="jmxmpContext.xml" />
-	<import resource="groovyContext.xml" />
-	<import resource="jtaContext.xml" />
-	<import resource="jmsContext.xml" />
-	<import resource="dbContext.xml" />
-	<import resource="camelContext.xml" />
-	<import resource="oracleContext.xml" />
-	<import resource="hibernateContext.xml" />
-	<import resource="wmqContext.xml" />
+	
+	<jee:jndi-lookup id="oracleDs" jndi-name="java:jboss/datasources/OracleXADS"/>
+	
+	<bean id="oracleDataSource" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy" >
+		<qualifier value="ora"/>
+		<property name="targetDataSource" ref="oracleDs" />
+		<property name="reobtainTransactionalConnections" value="true" />
+	</bean>
+	
 
 </beans>

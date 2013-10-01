@@ -20,6 +20,7 @@ import javax.transaction.TransactionManager;
 import org.apache.log4j.Logger;
 import org.helios.jboss7.util.TransactionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -37,6 +38,8 @@ public class SpringMDB implements MessageListener, ApplicationContextAware {
 	@Autowired(required=true)
 	protected TransactionManager txManager = null;
 	protected ApplicationContext applicationContext = null;
+	@Autowired(required=true)
+	@Qualifier("h2")
 	protected DataSource dataSource = null;
 
 	public SpringMDB() {
@@ -93,8 +96,7 @@ public class SpringMDB implements MessageListener, ApplicationContextAware {
 	}
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
-		this.applicationContext = applicationContext;
-		this.dataSource = this.applicationContext.getBean("primaryDataSource", DataSource.class);
+		this.applicationContext = applicationContext;		
 	}
 
 }

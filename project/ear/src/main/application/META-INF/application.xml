@@ -2,12 +2,10 @@
 <application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" version="6">
   <display-name>JBoss7Sample Ear</display-name>
   <initialize-in-order>true</initialize-in-order>  
-  <module>
-    <connector>activemq-rar.rar</connector>
-  </module>
-  <module>
-    <connector>amq-config.rar</connector>
-  </module>  
+  <module><connector>activemq-rar.rar</connector></module>
+  <module><connector>amq-config.rar</connector></module>  
+  <module><connector>wmq.jmsra.rar</connector></module>
+  <module><connector>wmq-config.rar</connector></module>  
   <module><ejb>services.jar</ejb></module>
   <module><connector>spring.rar</connector></module>
   <library-directory>lib</library-directory>

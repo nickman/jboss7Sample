@@ -1,0 +1,76 @@
+<ironjacamar>	
+    <config-property name="logWriterEnabled">true</config-property>
+    <config-property name="maxConnections">10</config-property>
+    <config-property name="reconnectionRetryCount">5</config-property>
+    <config-property name="traceEnabled">true</config-property>
+    <config-property name="traceLevel">3</config-property>
+    <config-property name="reconnectionRetryInterval">300000</config-property>
+    <config-property name="connectionConcurrency">5</config-property>
+    <transaction-support>XATransaction</transaction-support>
+	<connection-definitions>
+		<!-- 
+			<connection-definition class-name="com.ibm.mq.connector.outbound.ManagedConnectionFactoryImpl" enabled="true" jndi-name="java:jboss/eis/WMQConnection" pool-name="WMQConnection" use-ccm="true" use-java-context="true">
+			<connection-definition class-name="com.ibm.mq.jms.MQXAConnectionFactory" enabled="true" jndi-name="java:jboss/eis/WMQConnection" pool-name="WMQConnection" use-ccm="true" use-java-context="true"> 		
+			com.ibm.mq.jms.MQXAConnectionFactory
+		-->
+		
+		<connection-definition class-name="com.ibm.mq.connector.outbound.ManagedConnectionFactoryImpl" enabled="true" jndi-name="java:jboss/eis/WMQConnection" pool-name="WMQConnection" use-ccm="true" use-java-context="true">
+	    <config-property name="channel" type="java.lang.String">JBOSS.SVRCONN</config-property>
+	    <config-property name="hostName" type="java.lang.String">localhost</config-property>
+	    <config-property name="port" type="java.lang.String">1415</config-property>
+	    <config-property name="queueManager" type="java.lang.String">NJW_QM</config-property>
+	    <config-property name="transportType" type="java.lang.String">CLIENT</config-property>
+        <xa-pool>
+          <min-pool-size>2</min-pool-size>
+          <max-pool-size>10</max-pool-size>
+          <prefill>true</prefill>
+          <use-strict-min>true</use-strict-min>
+          <flush-strategy>FailingConnectionOnly</flush-strategy>
+          <pad-xid>false</pad-xid>
+          <wrap-xa-resource>false</wrap-xa-resource>
+        </xa-pool>
+        <security>
+          <application/>
+        </security>
+        <recovery no-recovery="true">
+          <recover-credential>
+            <user-name>user</user-name>
+            <password>password</password>
+          </recover-credential>
+        </recovery>
+      </connection-definition>
+	</connection-definitions>    
+    <admin-objects>
+      <admin-object class-name="com.ibm.mq.connector.outbound.MQQueueProxy" enabled="true" jndi-name="java:jboss/jms/dest/WMQRequestQueue" pool-name="MQQueueProxy" use-java-context="true">
+        <config-property name="baseQueueManagerName">ECS.TO.ISG.LQUEUE.US</config-property>
+        <config-property name="CCSID">1208</config-property>
+        <config-property name="failIfQuiesce">true</config-property>
+        <config-property name="priority">APP</config-property>
+        <config-property name="persistence">APP</config-property>
+        <config-property name="encoding">NATIVE</config-property>
+        <config-property name="baseQueueName"/>
+        <config-property name="arbitraryProperties"/>
+        <config-property name="targetClient">JMS</config-property>
+        <config-property name="expiry">APP</config-property>
+        <config-property name="readAheadClosePolicy">ALL</config-property>
+      </admin-object>
+      <admin-object class-name="com.ibm.mq.connector.outbound.MQTopicProxy" enabled="true" jndi-name="java:jboss/jms/dest/WMQClearingTopic" pool-name="MQTopicProxy" use-java-context="true">
+        <config-property name="baseTopicName">TOPIC.CLEARING.EVENT</config-property>
+        <config-property name="CCSID">1208</config-property>
+        <config-property name="persistence">APP</config-property>
+        <config-property name="brokerPubQueueManager"/>
+        <config-property name="brokerPubQueue"/>
+        <config-property name="brokerVersion">1</config-property>
+        <config-property name="brokerCCDurSubQueue">SYSTEM.JMS.D.CC.SUBSCRIBER.QUEUE</config-property>
+        <config-property name="expiry">APP</config-property>
+        <config-property name="brokerDurSubQueue">SYSTEM.JMS.D.SUBSCRIBER.QUEUE</config-property>
+        <config-property name="failIfQuiesce">true</config-property>
+        <config-property name="priority">APP</config-property>
+        <config-property name="encoding">NATIVE</config-property>
+        <config-property name="arbitraryProperties"/>
+        <config-property name="targetClient">JMS</config-property>
+        <config-property name="readAheadClosePolicy">ALL</config-property>
+      </admin-object>
+    </admin-objects>
+	
+</ironjacamar>

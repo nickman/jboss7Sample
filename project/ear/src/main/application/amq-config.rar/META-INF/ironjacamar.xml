@@ -1,11 +1,5 @@
 <ironjacamar>
     <config-property name="UseInboundSession">false</config-property>
-    <!-- 
-    <config-property name="UserName">defaultUser</config-property>
-	<config-property name="ServerUrl">vm://localhost</config-property> 
-    <config-property name="Clientid"/>
-    <config-property name="Password">defaultPassword</config-property>	
-	-->
     <config-property name="BrokerXmlConfig">xbean:META-INF/broker.xml</config-property>
     <transaction-support>XATransaction</transaction-support>
     <connection-definitions>
@@ -17,52 +11,12 @@
           <use-strict-min>true</use-strict-min>
           <flush-strategy>FailingConnectionOnly</flush-strategy>
           <pad-xid>false</pad-xid>
-          <wrap-xa-resource>true</wrap-xa-resource>          
+          <wrap-xa-resource>false</wrap-xa-resource>          
         </xa-pool>
         <security>
           <application/>
         </security>
-        <recovery no-recovery="true">
-          <recover-credential>
-            <user-name>user</user-name>
-            <password>password</password>
-          </recover-credential>
-        </recovery>
-      </connection-definition>
-      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis/QueueConnection" pool-name="QueueConnection" use-ccm="true" use-java-context="true">
-        <xa-pool>
-          <min-pool-size>0</min-pool-size>
-          <max-pool-size>10</max-pool-size>
-          <prefill>false</prefill>
-          <use-strict-min>false</use-strict-min>
-          <flush-strategy>FailingConnectionOnly</flush-strategy>
-          <pad-xid>false</pad-xid>
-          <wrap-xa-resource>true</wrap-xa-resource>
-        </xa-pool>
-        <security>
-          <application/>
-        </security>
-        <recovery no-recovery="true">
-          <recover-credential>
-            <user-name>user</user-name>
-            <password>password</password>
-          </recover-credential>
-        </recovery>
-      </connection-definition>
-      <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" enabled="true" jndi-name="java:jboss/eis/TopicConnection" pool-name="TopicConnection" use-ccm="true" use-java-context="true">
-        <xa-pool>
-          <min-pool-size>0</min-pool-size>
-          <max-pool-size>10</max-pool-size>
-          <prefill>false</prefill>
-          <use-strict-min>false</use-strict-min>
-          <flush-strategy>FailingConnectionOnly</flush-strategy>
-          <pad-xid>false</pad-xid>
-          <wrap-xa-resource>true</wrap-xa-resource>
-        </xa-pool>
-        <security>
-          <application/>
-        </security>
-        <recovery no-recovery="true">
+        <recovery no-recovery="false">
           <recover-credential>
             <user-name>user</user-name>
             <password>password</password>
