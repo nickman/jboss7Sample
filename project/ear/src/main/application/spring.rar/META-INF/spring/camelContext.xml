@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:lang="http://www.springframework.org/schema/lang"       
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+       "  >
+	
+	<bean id="traceFormatter" class="org.apache.camel.processor.interceptor.DefaultTraceFormatter">
+		<property name="showProperties" value="true"/>
+		<property name="showHeaders" value="true"/>
+		<property name="showRouteId" value="true" />
+	</bean>
+	
+	
+	<context:annotation-config/>
+	<context:mbean-export/>
+	
+  	
+  	
+  	
+	<bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+      <property name="brokerURL" value="vm://helios"/>
+   	</bean>
+
+   	
+	<camelContext xmlns="http://camel.apache.org/schema/spring" trace="false" id="HeliosContext" autoStartup="true"  >
+			
+		<camel:threadPoolProfile id="MulticastThreadPool" poolSize="5"  maxPoolSize="10" maxQueueSize="1000" />		
+		
+		
+	  	<route id="AMQAgentListener" autoStartup="true" >	  	
+	    	<from uri="activemq:topic:CLEARING.TOPIC" id="ClearingEventConsumer" />	
+	    	<to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" />
+	  	</route>
+	  
+    	
+	</camelContext>
+	
+	<!-- Does not work in Java < 1.7 -->
+	<!--
+	<camelContext xmlns="http://camel.apache.org/schema/spring" trace="false" id="JMXNotificationsContext" depends-on="SubscriberRouteRegistry"  autoStartup="true"  >
+		<camel:dataFormats>
+			<camel:custom ref="JSONDataFormat"  id="JMXOTStreamDataFormatJSON"/>
+			<camel:json library="Jackson" id="JacksonDataFormatJSON"/>
+		</camel:dataFormats>
+	
+		<camel:route id="JMX2WebSockets"  >
+			<camel:from uri="jmx:platform?objectDomain=java.lang&amp;key.type=GarbageCollector&amp;key.name=PS Scavenge" />
+			<camel:marshal ref="JacksonDataFormatJSON"  />
+			<camel:multicast>				
+				<camel:to uri="log:spring.container.HeliosContainerMain?level=WARN" />
+			</camel:multicast>
+		</camel:route>
+	</camelContext>
+ -->
+ 
+ 
+</beans>
+

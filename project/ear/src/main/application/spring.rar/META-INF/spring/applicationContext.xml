@@ -13,6 +13,8 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 	<import resource="jtaContext.xml" />
 	<import resource="jmsContext.xml" />
 	<import resource="dbContext.xml" />
+	<import resource="camelContext.xml" />
+	
 	
 
 </beans>

@@ -17,7 +17,12 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 	
 	<bean id="dbInit" class="org.helios.jboss7.util.JDBCHelper" factory-method="getInstance" destroy-method="killDb">
 		<constructor-arg ref="h2ConnectionFactory" />
+		<!-- 
 		<constructor-arg value="RUNSCRIPT FROM 'C:/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
+		 -->
+		 <constructor-arg value="RUNSCRIPT FROM '/home/nwhitehead/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
+		
+		
 	</bean>
 	
 		  <!--  Uncomment to enable remote access to the in-memory test database -->

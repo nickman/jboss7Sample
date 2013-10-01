@@ -18,6 +18,7 @@ import javax.transaction.Transaction;
 import javax.transaction.TransactionManager;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author nwhitehead
@@ -40,7 +41,7 @@ public class SimpleMDB implements MessageListener {
 	protected final int serial = serialFactory.incrementAndGet();
 	protected final Logger log = Logger.getLogger(getClass().getName() + "#" + serial);
 	
-	@Resource(lookup="java:jboss/TransactionManager")
+	@Autowired(required=true)
 	protected TransactionManager txManager = null;
 	
 	public SimpleMDB() {

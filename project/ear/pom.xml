@@ -51,6 +51,12 @@
       <type>rar</type>
     </dependency>
     
+	<dependency>
+	  <groupId>org.apache.activemq</groupId>
+	  <artifactId>activemq-camel</artifactId>
+	</dependency>
+    
+    
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-all</artifactId>
@@ -121,6 +127,55 @@
 	<groupId>org.springframework</groupId>
 	<artifactId>spring-orm</artifactId>
       </dependency>
+
+    	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-core</artifactId>
+	  
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-spring</artifactId>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-jms</artifactId>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-jetty</artifactId>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-jmx</artifactId>
+	</dependency>
+
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-servlet</artifactId>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-jaxb</artifactId>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-jackson</artifactId>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-xstream</artifactId>
+	</dependency>
+
+
 
   </dependencies>
   

@@ -22,7 +22,7 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
    		<property name="sessionTransacted" value="true" />   		
 	</bean>
 	
-	<bean id="clearingTopicListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	<bean id="clearingTopicListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer" destroy-method="stop">
 		<property name="connectionFactory" ref="txJmsConnectionFactory"/>
     	<property name="destination" ref="clearingTopic"/>
     	<property name="messageListener" ref="clearingTopicProcessor" />
