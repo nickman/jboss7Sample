@@ -31,43 +31,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * <p><code>org.helios.jboss7.jms.mdb.SimpleMDB</code></p>
  */
 @MessageDriven(name = "SimpleMDB", activationConfig = {
-		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "REQUEST.QUEUE"),
+		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
+		@ActivationConfigProperty(propertyName = "destination", propertyValue = "CLEARING.TOPIC"),
+		@ActivationConfigProperty(propertyName = "clientId", propertyValue = "SimpleMDB-ClearingTopic"),
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @org.jboss.ejb3.annotation.ResourceAdapter("sample-ear.ear#amq-config")  
-public class SimpleMDB implements MessageListener {
-	protected static final AtomicInteger serialFactory = new AtomicInteger();
-	protected final int serial = serialFactory.incrementAndGet();
-	protected final Logger log = Logger.getLogger(getClass().getName() + "#" + serial);
+public class SimpleMDB extends BaseMDB implements MessageListener {
 	
-	@Autowired(required=true)
-	protected TransactionManager txManager = null;
-	
-	public SimpleMDB() {
-		log.info("Created SimpleMDB Instance #");
-	}
-	
-	public void onMessage(Message message) {
-		if(message instanceof TextMessage) {
-			try {
-				log.info("Received Message [" + ((TextMessage)message).getText() + "]" + "TX Status:" + getTxStatus());
-			} catch (JMSException e) {
-				log.error("Failed to process message", e);
-				e.printStackTrace();
-			}
-		} else {
-			log.info("Received Message [" + message + "]" + "\n\tTX:" + txManager);
-		}
-	}
-	
-	public String getTxStatus() {
-		try {
-			Transaction tx = txManager.getTransaction();
-			return String.format("[%s] - [%s]  Status:%s", tx.getClass().getName(), tx.toString(), tx.getStatus());
-		} catch (Exception ex) {
-			log.error("Failed to get TX Status", ex);
-			return ex.getMessage();
-		}
-	}
 }

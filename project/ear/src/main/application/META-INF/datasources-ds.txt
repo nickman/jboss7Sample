@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <datasources xmlns="http://www.ironjacamar.org/doc/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	    <!-- HA: Oracle Specific methods to deal with connection problems
+	    <new-connection-sql>call DBMS_APPLICATION_INFO.SET_MODULE('MyApp ${bisas.pid}','MyDB')</new-connection-sql>
+
 	<xa-datasource jndi-name="java:jboss/datasources/OracleXADS" pool-name="OraDB" enabled="true" use-java-context="true">
 	 
 
@@ -7,9 +10,6 @@
 	    <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>	    
 	    <driver>sample-ear.earoracle.jdbc.OracleDriver_11_2</driver>
 	 
-	    <!-- HA: Oracle Specific methods to deal with connection problems
-	    <new-connection-sql>call DBMS_APPLICATION_INFO.SET_MODULE('MyApp ${bisas.pid}','MyDB')</new-connection-sql>
-	     -->
 	     
 	    <xa-pool>
 	        <min-pool-size>5</min-pool-size>
@@ -27,17 +27,13 @@
 	        <password>ecs</password>
 	    </security>
 	 
-	    <!-- pooling parameters -->
-	    <!-- timeout and expiry parameters -->
 	    <validation>
 	    	        
 	        <validate-on-match>false</validate-on-match>
 	        <background-validation>true</background-validation>
 	        <background-validation-millis>30000</background-validation-millis>
 
-	        <!-- Uses the pingDatabase method to check a connection is still valid before handing it out from the pool -->
-	        <!--valid-connection-checker-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker</valid-connection-checker-class-name-->
-	        <!-- Checks the Oracle error codes and messages for fatal errors -->
+	        <valid-connection-checker-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker</valid-connection-checker-class-name>
 	        <exception-sorter class-name="org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter"></exception-sorter>
 
 	    </validation>
@@ -57,7 +53,7 @@
 	 
 	</xa-datasource>
 
-	 
+-->	 
 
 
    <xa-datasource jndi-name="java:jboss/datasources/ReportingH2XADS" pool-name="ReportingH2XADS" enabled="true" use-ccm="true">

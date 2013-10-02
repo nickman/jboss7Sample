@@ -34,10 +34,17 @@
 		<property name="connectionFactory" ref="jmsConnectionFactory"/>		
 	</bean>
 	
+	<bean id="hornetJms" class="org.apache.camel.component.jms.JmsComponent">
+		<property name="connectionFactory" ref="hornetJmsConnectionFactory"/>		
+	</bean>
+	
+	
+<!-- 
 	<bean id="wmqJms" class="org.apache.camel.component.jms.JmsComponent">
 		<property name="connectionFactory" ref="wmqTxJmsConnectionFactory"/>		
 	</bean>
-	
+
+ -->	
 	
 	
    	
@@ -45,8 +52,13 @@
 		<camel:threadPoolProfile id="MulticastThreadPool" poolSize="5"  maxPoolSize="10" maxQueueSize="1000" />		
 	  	<route id="JMSListener" autoStartup="true" >	  	
 	    	<from uri="jms:topic:CLEARING.TOPIC" id="ClearingEventConsumer" />	
-	    	<to id="WMQClearingPublisher" uri="wmqJms:topic:CLEARING.TOPIC" />
-	    	<!-- <to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" /> -->	    	
+	    	<!-- 
+	    		<to id="WMQClearingPublisher" uri="wmqJms:topic:CLEARING.TOPIC" />
+	    		<to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" />
+	    		<to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" />
+	    	 -->
+	    	 <to id="WMQClearingPublisher" uri="hornetJms:topic:HornetClearingTopic" />
+	    	 <to id="MockTopic" uri="mock:mockClearingTopic" />
 	  	</route>
 	</camelContext>
 	

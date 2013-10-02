@@ -30,10 +30,7 @@ import org.springframework.context.ApplicationContextAware;
  * @author Nicholas Whitehead
  * <p><code>org.helios.jboss7.jms.mdb.SpringMDB</code></p>
  */
-public class SpringMDB implements MessageListener, ApplicationContextAware {
-	protected static final AtomicInteger serialFactory = new AtomicInteger();
-	protected final int serial = serialFactory.incrementAndGet();
-	protected final Logger log = Logger.getLogger(getClass().getName() + "#" + serial);
+public class SpringMDB extends BaseMDB implements MessageListener, ApplicationContextAware {
 	
 	@Autowired(required=true)
 	protected TransactionManager txManager = null;
@@ -42,11 +39,9 @@ public class SpringMDB implements MessageListener, ApplicationContextAware {
 	@Qualifier("h2")
 	protected DataSource dataSource = null;
 
-	public SpringMDB() {
-		log.info("Created SpringMDB Instance #" + serial);
-	}
 	
 	public void onMessage(Message message) {
+		super.onMessage(message);
 		if(message instanceof TextMessage) {
 			Connection conn = null;
 			PreparedStatement ps = null;
@@ -67,18 +62,6 @@ public class SpringMDB implements MessageListener, ApplicationContextAware {
 			}
 		} else {
 			log.info("Received Message [" + message + "]" + "\n\tTX:" + txManager);
-		}
-	}
-	
-	public String getTxStatus() {
-		
-		try {
-			Transaction tx = txManager.getTransaction();
-			
-			return String.format("[%s] - [%s]  Status:%s", tx.getClass().getName(), tx.toString(), tx.getStatus());
-		} catch (Exception ex) {
-			log.error("Failed to get TX Status", ex);
-			return ex.getMessage();
 		}
 	}
 	

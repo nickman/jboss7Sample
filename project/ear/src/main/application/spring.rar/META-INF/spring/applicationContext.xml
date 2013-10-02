@@ -13,9 +13,14 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 	<import resource="jtaContext.xml" />
 	<import resource="jmsContext.xml" />
 	<import resource="dbContext.xml" />
-	<import resource="camelContext.xml" />
-	<import resource="oracleContext.xml" />
 	<import resource="hibernateContext.xml" />
+	
+	<import resource="camelContext.xml" /> 
+	<import resource="hornetJmsContext.xml" />
+	
+	
+	<!--
 	<import resource="wmqContext.xml" />
-
+	<import resource="oracleContext.xml" />
+	-->
 </beans>

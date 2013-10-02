@@ -4,8 +4,11 @@
   <initialize-in-order>true</initialize-in-order>  
   <module><connector>activemq-rar.rar</connector></module>
   <module><connector>amq-config.rar</connector></module>  
+  <!-- 
   <module><connector>wmq.jmsra.rar</connector></module>
-  <module><connector>wmq-config.rar</connector></module>  
+  <module><connector>wmq-config.rar</connector></module>
+  -->  
+  
   <module><ejb>services.jar</ejb></module>
   <module><connector>spring.rar</connector></module>
   <library-directory>lib</library-directory>

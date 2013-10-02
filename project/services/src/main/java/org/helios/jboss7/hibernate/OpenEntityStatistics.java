@@ -22,7 +22,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.hibernate;
+package org.helios.jboss7.hibernate;
 
 import javax.management.MXBean;
 
@@ -33,7 +33,7 @@ import org.hibernate.stat.EntityStatistics;
  * <p>Description: Open type wrapper for a {@link EntityStatistics} instance </p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.hibernate.OpenEntityStatistics</code></p>
+ * <p><code>org.helios.jboss7.hibernate.OpenEntityStatistics</code></p>
  */
 public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 	/** The delegate instance */
@@ -49,7 +49,7 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean#getDeleteCount()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getDeleteCount()
 	 */
 	@Override
 	public long getDeleteCount() {
@@ -58,7 +58,7 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean#getInsertCount()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getInsertCount()
 	 */
 	@Override
 	public long getInsertCount() {
@@ -67,7 +67,7 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean#getCategoryName()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getCategoryName()
 	 */
 	@Override
 	public String getCategoryName() {
@@ -76,7 +76,7 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean#getLoadCount()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getLoadCount()
 	 */
 	@Override
 	public long getLoadCount() {
@@ -85,7 +85,7 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean#getUpdateCount()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getUpdateCount()
 	 */
 	@Override
 	public long getUpdateCount() {
@@ -94,7 +94,7 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean#getFetchCount()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getFetchCount()
 	 */
 	@Override
 	public long getFetchCount() {
@@ -103,7 +103,7 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean#getOptimisticFailureCount()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getOptimisticFailureCount()
 	 */
 	@Override
 	public long getOptimisticFailureCount() {

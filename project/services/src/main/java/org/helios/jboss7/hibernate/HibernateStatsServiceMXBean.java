@@ -22,7 +22,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.hibernate;
+package org.helios.jboss7.hibernate;
 
 import java.util.Date;
 
@@ -39,7 +39,7 @@ import org.springframework.jmx.support.MetricType;
  * <p>Description: </p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean</code></p>
+ * <p><code>org.helios.jboss7.hibernate.HibernateStatsServiceMXBean</code></p>
  */
 
 public interface HibernateStatsServiceMXBean  {

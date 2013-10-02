@@ -22,17 +22,29 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.hibernate;
+package org.helios.jboss7.hibernate;
 
 /**
- * <p>Title: OpenQueryStatisticsMBean</p>
- * <p>Description: Open data type interface for {@link OpenQueryStatistics}</p> 
+ * <p>Title: OpenCollectionStatisticsMBean</p>
+ * <p>Description: Open data type interface for {@link OpenCollectionStatistics}</p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean</code></p>
+ * <p><code>org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean</code></p>
  */
 
-public interface OpenQueryStatisticsMBean {
+public interface OpenCollectionStatisticsMBean {
+
+	/**
+	 * @return
+	 * @see org.hibernate.stat.CollectionStatistics#getLoadCount()
+	 */
+	public long getLoadCount();
+
+	/**
+	 * @return
+	 * @see org.hibernate.stat.CollectionStatistics#getFetchCount()
+	 */
+	public long getFetchCount();
 
 	/**
 	 * @return
@@ -42,50 +54,20 @@ public interface OpenQueryStatisticsMBean {
 
 	/**
 	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getExecutionCount()
+	 * @see org.hibernate.stat.CollectionStatistics#getRecreateCount()
 	 */
-	public long getExecutionCount();
+	public long getRecreateCount();
 
 	/**
 	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getCacheHitCount()
+	 * @see org.hibernate.stat.CollectionStatistics#getRemoveCount()
 	 */
-	public long getCacheHitCount();
+	public long getRemoveCount();
 
 	/**
 	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getCachePutCount()
+	 * @see org.hibernate.stat.CollectionStatistics#getUpdateCount()
 	 */
-	public long getCachePutCount();
-
-	/**
-	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getCacheMissCount()
-	 */
-	public long getCacheMissCount();
-
-	/**
-	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getExecutionRowCount()
-	 */
-	public long getExecutionRowCount();
-
-	/**
-	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getExecutionAvgTime()
-	 */
-	public long getExecutionAvgTime();
-
-	/**
-	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getExecutionMaxTime()
-	 */
-	public long getExecutionMaxTime();
-
-	/**
-	 * @return
-	 * @see org.hibernate.stat.QueryStatistics#getExecutionMinTime()
-	 */
-	public long getExecutionMinTime();
+	public long getUpdateCount();
 
 }

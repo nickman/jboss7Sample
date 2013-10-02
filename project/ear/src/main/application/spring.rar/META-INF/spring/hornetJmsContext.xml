@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+	
+	<jee:jndi-lookup id="hornetJmsConnectionFactory" jndi-name="java:/ConnectionFactory"/>
+	<jee:jndi-lookup id="hornetRequestQueue" jndi-name="queue/HornetRequestQueue"/>	
+	<jee:jndi-lookup id="hornetClearingTopic" jndi-name="topic/HornetClearingTopic"/>
+	
+	<bean id="hornetTxJmsConnectionFactory" class="org.springframework.jms.connection.TransactionAwareConnectionFactoryProxy">		
+		<property name="targetConnectionFactory" ref="hornetJmsConnectionFactory" />
+	</bean>
+	
+	<bean id="hornetJjmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+   		<constructor-arg ref="hornetTxJmsConnectionFactory"/>
+   		<property name="receiveTimeout" value="1000" />
+   		<property name="sessionTransacted" value="true" />   		
+	</bean>
+	
+	<!-- 
+	<bean id="hornetClearingTopicListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer" destroy-method="stop">
+		<property name="connectionFactory" ref="hornetTxJmsConnectionFactory"/>
+    	<property name="destination" ref="hornetClearingTopic"/>
+    	<property name="messageListener" ref="hornetClearingTopicProcessor" />
+    	<property name="transactionManager" ref="txManager"/>
+	</bean>
+	
+	<bean id="hornetClearingTopicProcessor" class="org.helios.jboss7.jms.mdb.SpringMDB"/>
+	-->
+
+</beans>

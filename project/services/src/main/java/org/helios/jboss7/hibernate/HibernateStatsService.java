@@ -22,7 +22,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.hibernate;
+package org.helios.jboss7.hibernate;
 
 import java.util.Date;
 
@@ -41,7 +41,7 @@ import org.springframework.jmx.support.MetricType;
  * <p>Description: Wrapper for the Hibernate stats service {@link StatisticsService} to expose internal stats as open data types</p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.hibernate.HibernateStatsService</code></p>
+ * <p><code>org.helios.jboss7.hibernate.HibernateStatsService</code></p>
  */
 public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	/** The delegate stats service */
@@ -58,7 +58,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#clear()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#clear()
 	 */
 	@Override
 	@ManagedOperation(description="Resets the JMX Hibernate statistics")
@@ -68,7 +68,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityStatistics(java.lang.String)
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityStatistics(java.lang.String)
 	 */
 	@Override
 	@ManagedOperation(description="Retrieves the Hibernate entity statistics for the passed entity name")
@@ -79,7 +79,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityStatistics()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityStatistics()
 	 */
 	@Override
 	@ManagedAttribute(description="The Hibernate entity statistics")
@@ -94,7 +94,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionStatistics(java.lang.String)
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionStatistics(java.lang.String)
 	 */
 	@Override
 	@ManagedOperation(description="Retrieves the Hibernate collection statistics for the passed collection role")
@@ -105,7 +105,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionStatistics()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionStatistics()
 	 */
 	@Override
 	@ManagedAttribute(description="The Hibernate collection statistics")
@@ -131,7 +131,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryStatistics(java.lang.String)
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryStatistics(java.lang.String)
 	 */
 	@Override
 	@ManagedOperation(description="Retrieves the Hibernate query statistics for the passed sql")
@@ -142,7 +142,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryStatistics()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryStatistics()
 	 */
 	@Override
 	@ManagedAttribute(description="The Hibernate query statistics")
@@ -157,7 +157,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityDeleteCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityDeleteCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="EntityDeleteCount", metricType=MetricType.COUNTER, description="The total number of deleted entities")
@@ -167,7 +167,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityInsertCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityInsertCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="EntityInsertCount", metricType=MetricType.COUNTER, description="The total number of inserted entities")
@@ -177,7 +177,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityLoadCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityLoadCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="EntityLoadCount", metricType=MetricType.COUNTER, description="The total number of loaded entities")
@@ -187,7 +187,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityFetchCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityFetchCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="EntityFetchCount", metricType=MetricType.COUNTER, description="The total number of fetched entities")
@@ -197,7 +197,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityUpdateCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityUpdateCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="EntityUpdateCount", metricType=MetricType.COUNTER, description="The total number of updated entities")
@@ -207,7 +207,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryExecutionCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryExecutionCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="QueryExecutionCount", metricType=MetricType.COUNTER, description="The total number of executed queries")
@@ -217,7 +217,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryCacheHitCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryCacheHitCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="QueryCacheHitCount", metricType=MetricType.COUNTER, description="The query cache hit count")
@@ -227,7 +227,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryExecutionMaxTime()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryExecutionMaxTime()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="QueryExecutionMaxTime", metricType=MetricType.GAUGE, description="The maximum query execution time in ms.")
@@ -237,7 +237,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryCacheMissCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryCacheMissCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="QueryCacheMissCount", metricType=MetricType.COUNTER, description="The query cache miss count")
@@ -247,7 +247,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryCachePutCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryCachePutCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="QueryCachePutCount", metricType=MetricType.COUNTER, description="The query cache put count")
@@ -257,7 +257,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getFlushCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getFlushCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="FlushCount", metricType=MetricType.COUNTER, description="The hibernate flush count")
@@ -267,7 +267,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getConnectCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getConnectCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="ConnectCount", metricType=MetricType.COUNTER, description="The global number of connections asked by the sessions")
@@ -277,7 +277,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getSessionCloseCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getSessionCloseCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="CloseCount", metricType=MetricType.COUNTER, description="The global number of sessions closed")
@@ -287,7 +287,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getSessionOpenCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getSessionOpenCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="SessionOpenCount", metricType=MetricType.COUNTER, description="The number of open sessions")
@@ -297,7 +297,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionLoadCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionLoadCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="CollectionLoadCount", metricType=MetricType.COUNTER, description="The number of loaded collections")
@@ -307,7 +307,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionFetchCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionFetchCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="CollectionFetchCount", metricType=MetricType.COUNTER, description="The number of fetched collections")
@@ -317,7 +317,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionUpdateCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionUpdateCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="CollectionUpdateCount", metricType=MetricType.COUNTER, description="The number of updated collections")
@@ -327,7 +327,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionRemoveCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionRemoveCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="CollectionRemoveCount", metricType=MetricType.COUNTER, description="The number of removed collections")
@@ -337,7 +337,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionRecreateCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionRecreateCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="CollectionRecreateCount", metricType=MetricType.COUNTER, description="The number of recreated collections")
@@ -347,7 +347,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getStartTime()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getStartTime()
 	 */
 	@Override
 	@ManagedAttribute(description="The service start timestamp")
@@ -357,7 +357,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getStartDate()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getStartDate()
 	 */
 	@Override
 	@ManagedAttribute(description="The service start date")
@@ -368,7 +368,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#isStatisticsEnabled()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#isStatisticsEnabled()
 	 */
 	@Override
 	@ManagedAttribute(description="The enabled state of the service")
@@ -378,7 +378,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#setStatisticsEnabled(boolean)
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#setStatisticsEnabled(boolean)
 	 */
 	@Override
 	@ManagedAttribute(description="The enabled state of the service")
@@ -388,7 +388,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#logSummary()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#logSummary()
 	 */
 	@Override
 	@ManagedOperation(description="Logs the statistics to standard out")
@@ -398,7 +398,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCollectionRoleNames()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCollectionRoleNames()
 	 */
 	@Override
 	@ManagedAttribute(description="An array of the collection role names")
@@ -408,7 +408,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getEntityNames()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getEntityNames()
 	 */
 	@Override
 	@ManagedAttribute(description="An array of the entity names")
@@ -418,7 +418,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueries()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueries()
 	 */
 	@Override
 	@ManagedAttribute(description="An array of the queries")
@@ -428,7 +428,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getSuccessfulTransactionCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getSuccessfulTransactionCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="SuccessfulTransactionCount", metricType=MetricType.COUNTER, description="The number of successful transactions")
@@ -438,7 +438,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getTransactionCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getTransactionCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="TransactionCount", metricType=MetricType.COUNTER, description="The number of executed transactions")
@@ -448,7 +448,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getCloseStatementCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getCloseStatementCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="CloseStatementCount", metricType=MetricType.COUNTER, description="The number of closed statements")
@@ -458,7 +458,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getPrepareStatementCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getPrepareStatementCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="PrepareStatementCount", metricType=MetricType.COUNTER, description="The number of prepared statements acquired")
@@ -468,7 +468,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getOptimisticFailureCount()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getOptimisticFailureCount()
 	 */
 	@Override
 	@ManagedMetric(category="Hibernate", displayName="OptimisticFailureCount", metricType=MetricType.COUNTER, description="The number of optimistic failures")
@@ -478,7 +478,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.HibernateStatsServiceMXBean#getQueryExecutionMaxTimeQueryString()
+	 * @see org.helios.jboss7.hibernate.HibernateStatsServiceMXBean#getQueryExecutionMaxTimeQueryString()
 	 */
 	@Override
 	@ManagedAttribute(description="The HQL of the slowest query")

@@ -22,7 +22,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.hibernate;
+package org.helios.jboss7.hibernate;
 
 import org.hibernate.stat.QueryStatistics;
 
@@ -31,7 +31,7 @@ import org.hibernate.stat.QueryStatistics;
  * <p>Description: Open type wrapper for a {@link QueryStatistics} instance </p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.hibernate.OpenQueryStatistics</code></p>
+ * <p><code>org.helios.jboss7.hibernate.OpenQueryStatistics</code></p>
  */
 
 public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
@@ -48,7 +48,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getCategoryName()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getCategoryName()
 	 */
 	@Override
 	public String getCategoryName() {
@@ -57,7 +57,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getExecutionCount()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getExecutionCount()
 	 */
 	@Override
 	public long getExecutionCount() {
@@ -66,7 +66,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getCacheHitCount()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getCacheHitCount()
 	 */
 	@Override
 	public long getCacheHitCount() {
@@ -75,7 +75,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getCachePutCount()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getCachePutCount()
 	 */
 	@Override
 	public long getCachePutCount() {
@@ -84,7 +84,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getCacheMissCount()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getCacheMissCount()
 	 */
 	@Override
 	public long getCacheMissCount() {
@@ -93,7 +93,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getExecutionRowCount()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getExecutionRowCount()
 	 */
 	@Override
 	public long getExecutionRowCount() {
@@ -102,7 +102,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getExecutionAvgTime()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getExecutionAvgTime()
 	 */
 	@Override
 	public long getExecutionAvgTime() {
@@ -111,7 +111,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getExecutionMaxTime()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getExecutionMaxTime()
 	 */
 	@Override
 	public long getExecutionMaxTime() {
@@ -120,7 +120,7 @@ public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenQueryStatisticsMBean#getExecutionMinTime()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getExecutionMinTime()
 	 */
 	@Override
 	public long getExecutionMinTime() {

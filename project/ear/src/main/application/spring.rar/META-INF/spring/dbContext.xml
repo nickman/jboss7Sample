@@ -22,7 +22,7 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 		<constructor-arg value="RUNSCRIPT FROM 'C:/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
 		<constructor-arg value="RUNSCRIPT FROM '/home/nwhitehead/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
 		 -->
-		 <constructor-arg value="RUNSCRIPT FROM 'C:/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
+		 <constructor-arg value="RUNSCRIPT FROM '/home/nwhitehead/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
 	</bean>
 	
 	<bean id="ConsoleController" class="org.helios.jboss7.h2.H2ListenerController">

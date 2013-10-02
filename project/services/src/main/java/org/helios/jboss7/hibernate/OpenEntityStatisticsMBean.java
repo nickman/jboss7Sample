@@ -22,14 +22,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.hibernate;
+package org.helios.jboss7.hibernate;
 
 /**
  * <p>Title: OpenEntityStatisticsMBean</p>
  * <p>Description: Open data type interface for {@link OpenEntityStatistics}</p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.hibernate.OpenEntityStatisticsMBean</code></p>
+ * <p><code>org.helios.jboss7.hibernate.OpenEntityStatisticsMBean</code></p>
  */
 
 public interface OpenEntityStatisticsMBean {

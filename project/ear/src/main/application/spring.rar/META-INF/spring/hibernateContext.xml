@@ -34,7 +34,7 @@
     </bean>
     
     
-    <bean id="HibernateStatistics" class="org.helios.apmrouter.hibernate.HibernateStatsService">
+    <bean id="HibernateStatistics" class="org.helios.jboss7.hibernate.HibernateStatsService">
     	<constructor-arg ref="sessionFactory" />
     	<property name="statisticsEnabled" value="true"/>
     		

@@ -22,7 +22,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.hibernate;
+package org.helios.jboss7.hibernate;
 
 import org.hibernate.stat.CollectionStatistics;
 
@@ -31,7 +31,7 @@ import org.hibernate.stat.CollectionStatistics;
  * <p>Description: Open type wrapper for a {@link CollectionStatistics} instance </p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.hibernate.OpenCollectionStatistics</code></p>
+ * <p><code>org.helios.jboss7.hibernate.OpenCollectionStatistics</code></p>
  */
 
 public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  {
@@ -48,7 +48,7 @@ public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenCollectionStatisticsMBean#getLoadCount()
+	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getLoadCount()
 	 */
 	@Override
 	public long getLoadCount() {
@@ -57,7 +57,7 @@ public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenCollectionStatisticsMBean#getFetchCount()
+	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getFetchCount()
 	 */
 	@Override
 	public long getFetchCount() {
@@ -66,7 +66,7 @@ public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenCollectionStatisticsMBean#getCategoryName()
+	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getCategoryName()
 	 */
 	@Override
 	public String getCategoryName() {
@@ -75,7 +75,7 @@ public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenCollectionStatisticsMBean#getRecreateCount()
+	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getRecreateCount()
 	 */
 	@Override
 	public long getRecreateCount() {
@@ -84,7 +84,7 @@ public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenCollectionStatisticsMBean#getRemoveCount()
+	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getRemoveCount()
 	 */
 	@Override
 	public long getRemoveCount() {
@@ -93,7 +93,7 @@ public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.apmrouter.hibernate.OpenCollectionStatisticsMBean#getUpdateCount()
+	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getUpdateCount()
 	 */
 	@Override
 	public long getUpdateCount() {
