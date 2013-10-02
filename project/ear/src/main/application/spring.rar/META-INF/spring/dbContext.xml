@@ -21,8 +21,22 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 		<!-- 
 		<constructor-arg value="RUNSCRIPT FROM 'C:/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
 		<constructor-arg value="RUNSCRIPT FROM '/home/nwhitehead/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
-		 -->
-		 <constructor-arg value="RUNSCRIPT FROM '/home/nwhitehead/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
+		<constructor-arg value="RUNSCRIPT FROM '/home/nwhitehead/hprojects/jboss7Sample/project/services/src/main/resources/ddl/events/event-schema.sql'" />
+		 -->		 
+	</bean>
+	
+	<bean id="dbPopulator" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <property name="targetObject">
+	        <ref local="dbInit"/>
+	    </property>
+	    <property name="targetMethod">
+	        <value>runSqlFromResource</value>
+	    </property>
+	    <property name="arguments">
+	        <list>
+	            <value>ddl/events/event-schema.sql</value>
+	        </list>
+	    </property>
 	</bean>
 	
 	<bean id="ConsoleController" class="org.helios.jboss7.h2.H2ListenerController">

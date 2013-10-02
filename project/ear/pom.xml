@@ -15,7 +15,7 @@
   <url>https://github.com/nickman/jboss7Sample</url>
 
   <dependencies>
-  <!-- 
+  
 		<dependency>
 		  <groupId>com.oracle</groupId>
 		  <artifactId>ojdbc6</artifactId>
@@ -28,9 +28,8 @@
 		<dependency>
 		  <groupId>com.ibm.mq</groupId>
 		  <artifactId>com.ibm.mqetclient</artifactId>
-		  <version>7.0.1.9</version>
 		</dependency>
-	-->		
+	
   
   
     <!--

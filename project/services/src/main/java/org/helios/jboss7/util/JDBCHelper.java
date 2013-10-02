@@ -3,6 +3,9 @@
  */
 package org.helios.jboss7.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
@@ -41,7 +44,9 @@ public class JDBCHelper {
 			conn = ds.getConnection();
 			ps = conn.prepareStatement("DROP ALL OBJECTS");			
 			ps.executeUpdate();
-			conn.commit();
+			if(!conn.getAutoCommit()) {
+				conn.commit();
+			}
 		} catch (Exception e) {
 			System.err.println("Drop Schema [TESTDB] Failed:" + e);
 		} finally {
@@ -69,6 +74,38 @@ public class JDBCHelper {
 	}
 	
 	/**
+	 * Executes the SQL script read from the named classpath resource
+	 * @param resourceName The name of a classpath resource containing a SQL script
+	 */
+	public void runSqlFromResource(String resourceName) {
+		InputStream is = null;
+		FileOutputStream fos = null;
+		File f = null;
+		try {
+			is = JDBCHelper.class.getClassLoader().getResourceAsStream(resourceName);
+			f = File.createTempFile("tmp", ".sql");
+			fos = new FileOutputStream(f);
+			byte[] buff = new byte[8096];
+			int bytesRead = -1;
+			while((bytesRead = is.read(buff))!=-1) {
+				fos.write(buff, 0, bytesRead);
+			}
+			is.close();
+			is = null;
+			fos.flush();
+			fos.close();
+			fos = null;
+			runSql(f.getAbsolutePath());
+		} catch (Exception ex) {
+			throw new RuntimeException("Failed to execute SQL Script from resource [" + resourceName + "]", ex);
+		} finally {
+			if(is!=null) try { is.close(); } catch (Exception e) {}
+			if(fos!=null) try { fos.close(); } catch (Exception e) {}
+			if(f!=null) f.delete();
+		}
+	}
+	
+	/**
 	 * Executes the passed SQL as an update and returns the result code
 	 * @param sql The update SQL
 	 * @return the result code
@@ -79,10 +116,11 @@ public class JDBCHelper {
 		try {
 			conn = ds.getConnection();
 			ps = conn.prepareStatement(sql.toString());
+			int x = ps.executeUpdate();
 			if(!conn.getAutoCommit()) {
 				conn.commit();
 			}
-			return ps.executeUpdate();
+			return x;
 		} catch (Exception e) {
 			throw new RuntimeException("Update for [" + sql + "] failed", e);
 		} finally {

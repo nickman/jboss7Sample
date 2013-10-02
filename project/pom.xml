@@ -30,9 +30,9 @@
     <groovy.version>2.1.6</groovy.version>
     <arquillian.version>1.0.0.Final</arquillian.version>
     <jboss.plugin.version>7.3.Final</jboss.plugin.version>
-    <camel.version>2.8.1</camel.version>
+    <camel.version>2.12.1</camel.version>
     <oracle.version>11.2.0.2.0</oracle.version>
-    <mq.version>7.1.0.4</mq.version>
+    <mq.version>7.0.1.9</mq.version>
     
     <version.org.jboss.bom>1.0.7.Final</version.org.jboss.bom>
     <maven.compiler.target>1.7</maven.compiler.target>
@@ -80,7 +80,7 @@
 	========================================
 	Oracle JDBC  and WebSphereMQ JMS Artifacts
 	========================================
-	
+	-->
 	
 		<dependency>
 		  <groupId>com.oracle</groupId>
@@ -93,8 +93,14 @@
 		  <version>${mq.version}</version>
 		  <type>rar</type>
 		</dependency>
+		<dependency>
+		  <groupId>com.ibm.mq</groupId>
+		  <artifactId>com.ibm.mqetclient</artifactId>
+		  <version>${mq.version}</version>
+		</dependency>
+		
 
-	-->
+	
 	
 	
 	

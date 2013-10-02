@@ -36,7 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 		@ActivationConfigProperty(propertyName = "clientId", propertyValue = "SimpleMDB-ClearingTopic"),
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-@org.jboss.ejb3.annotation.ResourceAdapter("sample-ear.ear#amq-config")  
+@org.jboss.ejb3.annotation.ResourceAdapter("sample-ear.ear#amq-config.rar")  
 public class SimpleMDB extends BaseMDB implements MessageListener {
 	
 }

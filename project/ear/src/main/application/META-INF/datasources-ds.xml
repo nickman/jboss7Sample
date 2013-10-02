@@ -33,6 +33,57 @@
        </statement>
    </xa-datasource>
    
+	<xa-datasource jndi-name="java:jboss/datasources/OracleXADS" pool-name="OraDB" enabled="true" use-java-context="true">
+	 
+
+	    <xa-datasource-property name="URL">jdbc:oracle:thin:@localhost:1521:orcl</xa-datasource-property>
+	    <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>	    
+	    <driver>sample-ear.earoracle.jdbc.OracleDriver_11_2</driver>
+	 
+	     
+	    <xa-pool>
+	        <min-pool-size>5</min-pool-size>
+	        <max-pool-size>200</max-pool-size>
+	        <prefill>true</prefill>
+	        <use-strict-min>true</use-strict-min>
+	        <is-same-rm-override>false</is-same-rm-override>
+	        <no-tx-separate-pools/>
+	        <wrap-xa-resource>false</wrap-xa-resource>
+	    </xa-pool>
+	     
+	 
+	    <security>
+	        <user-name>ecseumft</user-name>
+	        <password>ecs</password>
+	    </security>
+	 
+	    <validation>
+	    	        
+	        <validate-on-match>false</validate-on-match>
+	        <background-validation>true</background-validation>
+	        <background-validation-millis>30000</background-validation-millis>
+
+	        <!-- <valid-connection-checker-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker</valid-connection-checker-class-name> -->
+	        <exception-sorter class-name="org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter"></exception-sorter>
+
+	    </validation>
+	    
+	    <timeout>
+	    	<blocking-timeout-millis>60000</blocking-timeout-millis>
+	       	<idle-timeout-minutes>15</idle-timeout-minutes>
+	    </timeout>
+	    
+	    <statement>
+	       <track-statements>true</track-statements>
+	       <prepared-statement-cache-size>300</prepared-statement-cache-size>
+	       <share-prepared-statements/>           
+	    </statement>
+	    
+	    
+	 
+	</xa-datasource>
+   
+   
 </datasources>
 
 

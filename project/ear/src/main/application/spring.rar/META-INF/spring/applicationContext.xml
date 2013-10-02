@@ -10,6 +10,9 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 
 	<import resource="jmxmpContext.xml" />
 	<import resource="groovyContext.xml" />
+	
+	
+	<!--
 	<import resource="jtaContext.xml" />
 	<import resource="jmsContext.xml" />
 	<import resource="dbContext.xml" />
@@ -18,8 +21,6 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 	<import resource="camelContext.xml" /> 
 	<import resource="hornetJmsContext.xml" />
 	
-	
-	<!--
 	<import resource="wmqContext.xml" />
 	<import resource="oracleContext.xml" />
 	-->

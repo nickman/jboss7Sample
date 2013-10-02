@@ -1,20 +1,38 @@
 <?xml version="1.0"?>
-
-
-<ejb-jar>
-	<enterprise-beans>
- 
  		<!-- ================================================================================== -->
  		<!-- MDB listening on WebSphereMQ Clearing Event Topic                                  -->
  		<!-- ================================================================================== -->
- 		
-		<message-driven>
+  
+<ejb-jar version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"  
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
+  <!--   
+  <interceptors>  
+    <interceptor>  
+      <interceptor-class>com.package.bean.EJBSubscriptionBean</interceptor-class>  
+    </interceptor>  
+    <interceptor>  
+      <interceptor-class>com.package.bean.EJBRefundBean</interceptor-class>  
+    </interceptor>  
+  </interceptors>
+  <assembly-descriptor>  
+    <interceptor-binding>  
+      <ejb-name>EJBSubscriptionBean</ejb-name>  
+      <interceptor-class>com.package.bean.EJBSubscriptionBean</interceptor-class>  
+    </interceptor-binding>  
+    <interceptor-binding>  
+      <ejb-name>EJBRefundBean</ejb-name>  
+      <interceptor-class>com.package.bean.EJBRefundBean</interceptor-class>  
+    </interceptor-binding>  
+  </assembly-descriptor>  
+  
+  -->
+  <enterprise-beans>
+  	<message-driven>
 			<display-name>EJBXMLConfiguredMDB</display-name>
 			<ejb-name>EJBXMLConfiguredMDB</ejb-name>
-			<ejb-class>org.helios.jboss7.jms.mdb.EJBXMLConfiguredMDB</ejb-class>
-			<messaging-type>javax.jms.MessageListener</messaging-type>
+			<ejb-class>org.helios.jboss7.jms.mdb.EJBXMLConfiguredMDB</ejb-class>					
 			<transaction-type>Container</transaction-type>
-			
 			<activation-config>				
 				<activation-config-property>
 					<activation-config-property-name>messagingType</activation-config-property-name>
@@ -73,10 +91,7 @@
 					<activation-config-property-value>1</activation-config-property-value>
 				</activation-config-property>				
 			</activation-config>
-		</message-driven>
-		
-	</enterprise-beans>
-</ejb-jar>
+  	</message-driven>
+  </enterprise-beans>  
 
-
-
+</ejb-jar> 
