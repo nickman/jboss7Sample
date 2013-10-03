@@ -1,0 +1,149 @@
+@media print {
+    #woopra_bar { display: none; }
+}
+#woopra_bar li{list-style:none; line-height: normal; margin: 0;}
+#woopra_bar {
+  position: absolute; 
+  right: 80px; 
+  bottom: 0;
+  font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+  z-index: 9999;
+}
+
+* html #woopra_bar { 
+  /* for IE6 */
+  right: auto; 
+  bottom: auto;
+  left: expression( ( -80 - woopra_bar.offsetWidth + ( document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth ) + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+  top: expression( ( - woopra_bar.offsetHeight + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}
+
+body > div#woopra_bar {
+  /* used by Opera 5+, Netscape6+/Mozilla, Konqueror, Safari, OmniWeb 4.5+, iCab, ICEbrowser */
+  position: fixed;
+}
+
+#woopra_bar {
+	border: 3px solid #555;
+	border-bottom: none;
+	background: #e0e0e0;
+	-moz-border-radius-topleft: 4px;
+	-webkit-border-top-left-radius: 4px;
+	border-top-left-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+#woopra_bar a {
+	text-decoration: none;
+	color: #333;
+}
+
+#woopra_bar {
+  /* Netscape 4, IE 4.x-5.0/Win and other lesser browsers will use this */
+}
+
+
+#woopra_bar ul#woopra_barul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+#woopra_bar li.woopra_barli {
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+#woopra_bar a.woopra_tab {
+    display: block;
+	padding: 4px 10px;
+	background: #e5e5e5;
+	border-top: 1px solid #e8e8e8;
+	border-right: 1px solid #e8e8e8;
+	border-left: 1px solid #d9d9d9;
+	text-decoration: none;
+	color: #333;
+	outline: 0 none;
+}
+
+#woopra_bar a.woopra_logotab img {
+	margin: 6px 6px 0 6px;
+	padding: 0;
+	border: none;
+}
+
+#woopra_bar a.woopra_tab:hover {
+	background: #f0f0f0;
+}
+
+#woopra_bar span.woopra_textwidget {
+	padding: 5px 10px 4px 10px;
+	display: block;
+}
+
+.woopra_widgetbox {
+	display: none;
+	z-index: 100;
+	bottom: 30px;
+	position: absolute;
+	width: 180px;
+	margin: 0 0 0 -3px;
+	border: 3px solid #555;
+	background: #e0e0e0;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.wwb_head {
+	background: #333;
+	color: #fff;
+	padding: 3px 5px;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.wwb_content {
+	background: #fff;
+}
+
+.wwb_desc {
+	padding: 6px; 
+	text-align: center;
+	font-size: 11px;
+}
+
+.woopra_presence ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.woopra_presence ul a {
+	padding: 2px 5px;
+	border-bottom: 1px solid #ddd;
+	background: #f0f0f0;
+	display: block;
+}
+
+.woopra_presence ul a:hover {
+	background: #fff;
+}
+
+.woopra_presence .wwcp_meta {
+	font-size: 11px;
+	color: #666;
+}
+
+.woopra_presence .wwcp_avatar {
+	width: 28px;
+	height: 28px;
+	float: left;
+	margin-right: 5px;
+}
+

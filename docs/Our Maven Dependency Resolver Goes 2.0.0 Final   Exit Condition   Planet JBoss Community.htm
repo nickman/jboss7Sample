@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final -->
+<html xmlns="http://www.w3.org/1999/xhtml" class=" js no-flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Our Maven Dependency Resolver Goes 2.0.0 Final | Exit Condition | Planet JBoss Community</title>
+    <link rel="shortcut icon" href="http://planet.jboss.org/favicon.ico">
+
+    <link id="scss1" type="text/css" rel="stylesheet" href="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/styles.css" media="screen">
+    <link id="scss2" type="text/css" rel="stylesheet" href="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/org_common.css" media="screen">
+    <link id="scss3" type="text/css" rel="stylesheet" href="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/planetmain.css" media="screen">
+
+    <script type="text/javascript" async="" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/elqCfg.min.js"></script><script type="text/javascript" async="" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/ga.js"></script><script src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/search.js"></script><script src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/buttons.js"></script><script src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/tabzilla.js"></script><script type="text/javascript" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/jquery.min.js"></script>
+    <script type="text/javascript" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/modernizr.custom.js"></script>
+    <script type="text/javascript" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/app.js"></script>    
+    
+    <link id="printcss" type="text/css" rel="stylesheet" href="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/print.css" media="print">
+</head>
+
+<body id="getinvolved"><div id="dropmenudiv" style="display: none; position: absolute; left: 0px; top: 0px; width: 185px;"><div><a href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#" context="0">Search the Community</a></div><div><a href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#" context="1">Search Project Pages</a></div></div><div id="tabnav-panel" class="tabnav-closed"><div class="tabnavclearfix" id="tabnav">  <ul class="listclear">    <li class="current"> <span class="notch">&nbsp;</span> <a class="menu-title" href="http://www.jboss.org/">JBoss Community</a>      <ul class="level1">        <li class="leaf"><a href="http://planet.jboss.org/view/all">Blogs</a></li>        <li class="leaf"><a href="http://twitter.com/#!/jbossdeveloper">Tweets</a></li>        <li class="leaf"><a href="http://www.facebook.com/jboss">Facebook</a></li>        <li class="leaf"><a href="http://jboss.org/twitter">Twitter</a></li>        <li class="leaf"><a href="http://www.linkedin.com/company/jboss">LinkedIn</a></li>        <li class="leaf"><a href="http://vimeo.com/jbossdeveloper">Vimeo</a></li>        <li class="leaf"><a href="http://asylum.libsyn.com/">Asylum</a></li>        <li class="leaf"><a href="http://www.jboss.org/events">Events</a></li>      </ul>    </li>    <li class="current"> <span class="notch">&nbsp;</span> <a class="menu-title" href="http://www.jboss.org/developer">Get Started</a>      <ul class="level1">        <li class="leaf"><a href="http://devstudio.jboss.com/download/">Get Tool Kit (JBDS)</a></li>        <li class="leaf"><a href="http://www.jboss.org/projects">Downloads</a></li>        <li class="leaf"><a href="http://www.jboss.org/projects">Documentation</a></li>        <li class="leaf"><a href="http://community.jboss.org/">Forums</a></li>        <li class="leaf"><a href="http://www.jboss.org/webinars">Webinars</a></li>        <li class="leaf"><a href="http://java.dzone.com/category/tags/jboss">Articles</a></li>        <li class="leaf"><a href="http://www.jboss.org/books">Books</a></li>      </ul>    </li>    <li class="current"> <span class="notch">&nbsp;</span> <a class="menu-title" href="http://www.jboss.org/contribute">Get Involved</a>      <ul class="level1">        <li class="leaf"><a href="http://community.jboss.org/">Wiki</a></li>        <li class="leaf"><a href="http://community.jboss.org/">Discussions</a></li>        <li class="leaf"><a href="http://issues.jboss.org/">Issue Tracker</a></li>        <li class="leaf"><a href="http://source.jboss.org/">Source Repositories</a></li>        <li class="leaf"><a href="http://www.jboss.org/usergroups">User Groups</a></li>        <li class="leaf"><a class="menu-title" href="http://jboss.org/interests">Special Interest Groups</a></li>        <li class="leaf"><a href="http://www.jboss.org/security">Report a Security Issue</a></li>      </ul>    </li>    <li class="open"> <span class="notch">&nbsp;</span> <a class="menu-title" href="http://www.jboss.org/projects">Projects</a>      <ul class="level1">        <!--<li class="leaf alpha">A-O</li>-->        <li class="leaf"><a href="http://www.jboss.org/jbossas">Application Server</a></li>        <li class="leaf"><a href="http://www.jboss.org/jbossweb">Web Server</a></li>        <li class="leaf"><a href="http://www.jboss.org/gatein">GateIn</a></li>        <li class="leaf"><a href="http://www.jboss.org/jbossesb">ESB</a></li>        <li class="leaf"><a href="http://www.jboss.org/drools">Drools</a></li>        <li class="leaf"><a href="http://www.hibernate.org/">Hibernate</a></li>        <li class="leaf"><a href="http://www.jboss.org/richfaces">RichFaces</a></li>        <li class="leaf"><a href="http://www.jboss.org/tools">Tools</a></li>        <li class="leaf"><a href="http://www.jboss.org/rhq">RHQ</a></li>        <li class="leaf viewmore"><a href="http://www.jboss.org/projects">More...</a></li>      </ul>    </li><li class="open"> <span class="notch">&nbsp;</span> <a class="menu-title" href="http://www.jboss.org/products">Products</a>      <ul class="level1">        <li class="leaf"><a href="http://www.jboss.org/products/eap">Application Platform</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/web-server/">Web Server</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/data-grid/">Data Grid</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/portal/">Portal Platform</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/soa">SOA Platform</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/data-services">Data Services Platform</a></li>        <li class="leaf"><a href="http://www.jboss.org/products/fuse">Fuse</a></li>        <li class="leaf"><a href="http://www.jboss.org/products/amq">A-MQ</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/business-rules/">Business Rules Mgmt System</a></li>        <li class="leaf"><a href="https://www.jboss.org/products/jbds">Developer Studio</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/web-framework-kit">Web Framework Kit</a></li>        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/operations-network">Operations Network</a></li>        <li class="leaf viewmore"><a href="http://www.jboss.org/products">More...</a></li>      </ul>    </li>        <li id="tabnav-search">      <form action="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#">      <input id="searchbar" type="text" value="" style="height:14px;">      </form>    </li>  </ul></div></div>
+<div class="page-background type-a"></div>
+		  <script type="text/javascript">
+		    //<![CDATA[
+		    function appLoadedOnDesktop() {
+		        $(document).ready(function() {
+		          post.init($("#page-id-post-our_maven_dependency_resolver_goes_2_0_0_final"));
+		        });
+		    }
+		    //]]>
+		  </script>
+<div id="wrapper">
+<div id="maincontent-wrapper">
+  <div id="header-standard">
+      <script type="text/javascript">
+        //<![CDATA[ 
+          var part1 = "<a href='https://planet.jboss.org/security/login.seam'>Log In</a>";
+          var part2 = "<a href='https://community.jboss.org/register.jspa'>Register</a>";
+          var ssoData = {
+              part1 : part1,
+              part2 : part2
+            };
+        //]]>
+      </script><div id="awestructnavwrapper">
+<div id="branding">
+  
+  <div id="logo"> 
+    <a href="http://www.jboss.org/" title="Homepage"> 
+      <strong>JBoss Community</strong>
+      <span></span>
+    </a> 
+  </div>
+  
+<div id="primarynav">
+    <ul class="sf-menu">
+        <li id="primary-nav-home"> <a class="menu-title sf-with-ul" href="http://www.jboss.org/developer">Get Started</a></li>
+        <li id="primary-nav-getinvolved" class="current"> <a class="menu-title" href="http://www.jboss.org/contribute">Get Involved</a></li>
+        <li id="primary-nav-projects"> <a class="menu-title sf-with-ul" href="http://www.jboss.org/projects">Projects</a></li>
+        <li id="primary-nav-products" class="enterprise"> <a class="menu-title" href="http://www.jboss.org/products">Products</a></li>
+    </ul>
+</div>
+
+
+<div id="nav-meta">
+<ul>
+  <li id="jbssologininfo1"><a href="https://planet.jboss.org/security/login.seam">Log In</a>|</li>
+  <li id="jbssologininfo2"><a href="https://community.jboss.org/register.jspa">Register</a></li> 
+</ul>
+</div>
+ 
+<a href="http://www.jboss.org/" class="tabnav-closed" id="tab">Search</a>
+
+
+<script type="text/javascript">
+//<![CDATA[ 
+   jbossorgheader = {
+
+     /* Highlight main header */ 
+     highlightMainNav: function() {
+       bodyTag = document.getElementsByTagName("body").item(0);
+       navitemId = "primary-nav-projects";
+       if ("community" == bodyTag.id) {
+         navitemId = "primary-nav-home";
+       } else if ("getinvolved" == bodyTag.id) {
+         navitemId = "primary-nav-getinvolved";
+       } else if ("products" == bodyTag.id) {
+		   navitemId = "primary-nav-products";
+	   }
+       jbossorgheader.highlightMainNavByNavId(navitemId);
+     },
+
+     highlightMainNavByNavId: function(navitemId) {
+       document.getElementById(navitemId).className = "current";
+     } 
+   }
+   jbossorgheader.highlightMainNav();
+
+  function setSSOInfo(data) {
+    if (data) {
+      document.getElementById("jbssologininfo1").innerHTML = data.part1 + "|";
+      document.getElementById("jbssologininfo2").innerHTML = data.part2;
+    }
+  }
+  
+  if (typeof jbssoserverbase == 'undefined') {
+    var jbssoserverbase='https://sso.jboss.org';
+  }
+  
+  if (typeof jbssologouturl == 'undefined') {
+    var jbssologouturl = '';
+  }
+  
+  if (typeof jbssobackurl == 'undefined') {
+    var jbssobackurl = document.location.href;
+    if (document.location.hash.length > 0) {
+      jbssobackurl = jbssobackurl.replace(document.location.hash, "");
+    }
+  }
+  
+  if (typeof ssoData != 'undefined') {
+    setSSOInfo(ssoData);
+  } else {
+    var sso = document.createElement('script'); sso.type = 'text/javascript'; sso.async = true;
+    sso.src = jbssoserverbase + "/logininfo?backurl=" + escape(jbssobackurl) +"&lourl="+ escape(jbssologouturl) + "&callback=setSSOInfo";
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(sso, s);
+  }
+//]]>
+</script>
+</div>
+</div>
+  </div>
+  <div id="content-wrapper2">
+    <div id="page-id-post-our_maven_dependency_resolver_goes_2_0_0_final" class="content-wrapper page-post" data-role="page" data-dom-cache="true" data-theme="a">
+            <div class="main-content-header">
+                <div id="breadcrumb">
+                    <span>
+                    <a href="http://planet.jboss.org/" data-icon="home">JBoss Planet</a>
+				<span class="breadcrumb-delim">&gt;</span>
+				<a href="http://planet.jboss.org/group/global" data-icon="grid" data-direction="reverse" data-inline="true">Global</a>
+				<span class="breadcrumb-delim">&gt;</span>
+				<a href="http://planet.jboss.org/feed/exitcondition" data-direction="reverse" data-inline="true">Exit Condition</a>
+                    </span>
+                </div>
+            </div>
+            <div class="header-mobile black" data-role="header" data-position="fixed" data-tap-toggle="false">
+								<a id="back-button" href="http://planet.jboss.org/feed/exitcondition" data-shadow="false" data-direction="reverse">Exit Condition</a>
+                
+                <h1>
+      Our Maven Dependency Resolver Goes 2.0.0 Final
+                </h1> 
+                <a href="http://planet.jboss.org/" data-icon="home" class="ui-btn-right header-mobile-home" data-iconpos="notext" data-iconshadow="false" data-shadow="false" data-direction="reverse">Home</a>
+                <a href="http://planet.jboss.org/browse" data-icon="gear" class="ui-btn-right" data-transition="slidedown" data-iconpos="notext" data-iconshadow="false" data-shadow="false" data-theme="a">More</a>
+						</div>
+            <div class="main-content" data-role="content">
+                <div class="main-content-title">
+                  <h1 class="content-title" id="content-title-post-our_maven_dependency_resolver_goes_2_0_0_final">
+      Our Maven Dependency Resolver Goes 2.0.0 Final</h1>
+                  <div id="header-right"></div>
+                </div>
+                
+                <div class="main-messages">
+                </div>
+
+                <div class="main-body">
+
+        <script type="text/javascript">
+          function postInit() {
+            $("#page-id-post-our_maven_dependency_resolver_goes_2_0_0_final").live('pageshow', function() {
+							post.init($(this));
+            });
+          }
+          if (window.jQuery) {
+          	postInit();
+          }
+        </script> 
+
+				<div>
+
+    <div class="blogauthortag">Jun 19, 2013 9:32 AM, <b>Andrew Lee Rubinger</b> 
+        [ <a href="http://exitcondition.alrubinger.com/2013/06/19/resolvers-goes-final/">Original post</a> ]
+    </div>
+
+  <script type="text/javascript">
+    var showShareThis = true;
+  </script>
+  <div class="shareThis">
+		<span class="st_sharethis" displaytext="ShareThis"></span>
+		<span class="st_facebook"></span>
+		<span class="st_twitter"></span>
+		<span class="st_linkedin"></span>
+		<span class="st_email"></span>
+  </div>
+    <div data-role="controlgroup" data-type="horizontal" class="prev-next-links">
+	    <a id="post-prev" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#" data-role="button" data-iconpos="notext" data-iconshadow="true" data-icon="arrow-l" style="display: none;">Previous</a>
+	    <a id="post-next" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#" data-role="button" data-iconpos="notext" data-iconshadow="true" data-icon="arrow-r" style="display: none;">Next</a>
+  	</div>
+
+		<div class="blog-post-content ui-body ui-body-c ui-corner-top ui-corner-bottom ui-shadow"><div>
+<p><img class="alignleft" alt="" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/shrinkwrap_logo_450px.gif" width="450" height="100"></p>
+<p>Well folks, after plenty of API refinements and battle-testing within our own projects at the JBoss Community, we’re proud to offer ShrinkWrap Resolver at a locked 2.0.0 release. &nbsp;I’m posting the full user guide here, but the TL;DR of it is this: it’s an API for you to pull down Maven artifacts (and optionally their dependencies) in a simple fashion. &nbsp;The project requires zero dependencies, will work on any JRE5+ runtime, and is open source with an Apache License 2.0 hosted here:&nbsp;<a href="https://github.com/shrinkwrap/resolver" target="_blank">https://github.com/shrinkwrap/resolver</a>. &nbsp;Have at it.</p>
+<p>Special thanks go out to our contributors:</p>
+<p>Ales Justin<br>
+Andrew Lee Rubinger<br>
+Aslak Knutsen<br>
+Bernard Labno<br>
+Carlo de Wolf<br>
+Davide D’Alto<br>
+George Gastaldi<br>
+Ivan Pazmino<br>
+Jörg Prante<br>
+joserodolfofreitas<br>
+Karel Piwko<br>
+Michal Matloka<br>
+Sachin Patil<br>
+Samuel Santos<br>
+Tair Sabirgaliev<br>
+Thomas Segismont<br>
+Tommy Tynja</p>
+<p>…with special note to Karel Piwko from our JBoss QE department for both championing the concept of this project and its utility AND providing the proof-of-concept and implementations which lead to our solving the issue of nontrivial deployments in Arquillian in a sane way that didn’t involve too much software guesswork or cyclic build problems. &nbsp;Enjoy!</p>
+<p>S,</p>
+<p><a href="http://exitcondition.files.wordpress.com/2011/10/alr_signature.gif"><img class="alignnone size-full wp-image-167" alt="ALR" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/alr_signature.gif"></a></p>
+<p>ALR</p>
+<h2><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#introduction-to-shrinkwrap-resolvers" name="introduction-to-shrinkwrap-resolvers"></a>Introduction to ShrinkWrap Resolvers</h2>
+<div>
+<div>
+<p>Often we don’t control the construction of these libraries, and we certainly shouldn’t be in the business of re-assembling them (and hence further differentiating our tests from the our production runtime deployments). With the advent of Maven and other build systems, typically thirdparty libraries and our own dependent modules are obtained from a backing software <em>repository</em>. In this case we supply a series of coordinates which uniquely identifies an artifact in the repository, and resolve the target files from there.</p>
+</div>
+<div>
+<p>That is precisely the aim of the ShrinkWrap Resolvers project; it is a Java API to obtain artifacts from a repository system. Currently implemented are grammars and support for Maven-based repository structures (this is separate from the use of Maven as a project management system or build tool; it’s possible to use a Maven repository layout with other build systems).</p>
+</div>
+<div>
+<p>ShrinkWrap Resolvers is comprised of the following modules:</p>
+</div>
+<table>
+<tbody>
+<tr>
+<td><em>Name</em></td>
+<td><em>Maven Coordinates</em></td>
+</tr>
+<tr>
+<td>API</td>
+<td>org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api</td>
+</tr>
+<tr>
+<td>SPI</td>
+<td>org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi</td>
+</tr>
+<tr>
+<td>Maven API</td>
+<td>org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven</td>
+</tr>
+<tr>
+<td>Maven SPI</td>
+<td>org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi-maven</td>
+</tr>
+<tr>
+<td>Maven Implementation</td>
+<td>org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven</td>
+</tr>
+<tr>
+<td>Maven Implementation with Archive Integration</td>
+<td>org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven-archive</td>
+</tr>
+</tbody>
+</table>
+<div>
+<p>The separation between the Maven and non-Maven modules is there to enforce modular design and separate out generic resolution from Maven-specific grammars, should the project support other mechanisms in the future.</p>
+</div>
+</div>
+</div>
+<div>
+<h2><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#adding-shrinkwrap-resolvers-to-your-project" name="adding-shrinkwrap-resolvers-to-your-project"></a>Adding ShrinkWrap Resolvers to your project</h2>
+<div>
+<div>
+<p>Obtaining ShrinkWrap Resolvers for use in your system can be done in a single pass by declaring a dependency upon the <tt>depchain</tt> module in a Maven <em>pom.xml</em>:</p>
+</div>
+<div>
+<div>
+<pre><code>&lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-depchain&lt;/artifactId&gt;
+      &lt;version&gt;2.0.0&lt;/version&gt; &lt;!-- Or whatever version you need --&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+    &lt;/dependency&gt;
+    ...
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div>
+<p>This will bring the APIs into the test classpath and the SPIs and Implementation modules into the runtime classpaths (which will not be transitively inherited, as per Maven rules in <tt>runtime</tt> scope).</p>
+</div>
+<div>
+<p>Alternatively, you can have finer-grained control over using ShrinkWrap Resolvers by bringing in each module manually:</p>
+</div>
+<div>
+<div>
+<pre><code> &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-api&lt;/artifactId&gt;
+      &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-spi&lt;/artifactId&gt;
+      &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-api-maven&lt;/artifactId&gt;
+      &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-spi-maven&lt;/artifactId&gt;
+      &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-impl-maven&lt;/artifactId&gt;
+      &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-impl-maven-archive&lt;/artifactId&gt;
+      &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>
+<div>Important</div>
+</td>
+<td>
+<div>
+<p>If you happen to use Arquillian BOM in <tt>&lt;dependencyManagement&gt;</tt>, it already contains a ShrinkWrap Resolvers version. You must import ShrinkWrap Resolvers BOMs preceding Arquillian BOM in order to get 2.0.0-x version. Adding a ShrinkWrap BOM is recommended in any case.</p>
+</div>
+<div>
+<p>ShrinkWrap resolved BOM can be imported via following snippet:</p>
+</div>
+<div>
+<div>
+<pre><code>&lt;dependencyManagement&gt;
+  &lt;dependencies&gt;
+    ...
+    &lt;!-- Override dependency resolver with latest version.
+         This must go *BEFORE* the Arquillian BOM. --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+      &lt;artifactId&gt;shrinkwrap-resolver-bom&lt;/artifactId&gt;
+      &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+      &lt;scope&gt;import&lt;/scope&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div>
+<h2><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#resolving-dependencies" name="resolving-dependencies"></a>Resolving dependencies</h2>
+<div>
+<div>
+<p>The general entry point for resolution is the convenience <tt>org.jboss.shrinkwrap.resolver.api.maven.Maven</tt> class, which has static hooks to obtain a new <tt>org.jboss.shrinkwrap.resolver.api.maven.MavenResolverSystem</tt>.<br>
+Let’s cover most popular use cases for ShrinkWrap Resolver.</p>
+</div>
+<div>
+<h3><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#resolution-of-artifacts-specified-by-maven-coordinates" name="resolution-of-artifacts-specified-by-maven-coordinates"></a>Resolution of artifacts specified by Maven coordinates</h3>
+<div>
+<p>Maven coordinates, in their canonical form, are specified as following <tt>groupId:artifactId:[packagingType:[classifier]]:version</tt>. Often, those are referred as <tt>G</tt> (groupId), <tt>A</tt> (artifactId), <tt>P</tt> (packagingType), <tt>C</tt> (classifier) and <tt>V</tt> (version). If you omit <tt>P</tt> and <tt>C</tt>, they will get their default value, which is packaging of <tt>jar</tt> and an empty classifier. ShrinWrap Resolver additionally allows you to skip <tt>V</tt> in case it has version information available, that would be explained later on.</p>
+</div>
+<div>
+<ol>
+<li>The most simple use case is to resolve a file using coordinates. Here, resolver locates artifact defined by <tt>G:A:V</tt> and resolves it including all transitive dependencies. Result is formatted as array of <tt>File</tt>.
+<div>
+<div>
+<pre><code>File[] = Maven.resolver().resolve("G:A:V").withTransitivity().asFile();</code></pre>
+</div>
+</div>
+</li>
+<li>You might want to change default Maven behavior and resolve only artifact specified by <tt>G:A:V</tt>, avoiding its transitive dependencies. For such use case, ShrinkWrap Resolvers provides a shorthand for changing resolution strategy, called <tt>withoutTransitivity()</tt>. Additionally, you might want to return a single <tt>File</tt> instead of an array.
+<div>
+<div>
+<pre><code>Maven.resolver().resolve("G:A:V").withoutTransitivity().asSingleFile();</code></pre>
+</div>
+</div>
+</li>
+<li>Very often, you need to resolve more than one artifact. The method <tt>resolve(String…)</tt> allows you to specify more artifacts at the same time. The result of the call will be an array of <tt>File</tt> composed by artifacts defined by <tt>G1:A1:V1</tt> and <tt>G2:A2:V2</tt> including their transitive dependencies.
+<div>
+<div>
+<pre><code>Maven.resolver().resolve("G1:A1:V1", "G2:A1:V1").withTransitivity().asFile();</code></pre>
+</div>
+</div>
+</li>
+<li>Resolving a dependency with specific packaging type. Packaging type is specified by <tt>P</tt> in <tt>G:A:P:V</tt> coordinates description.
+<div>
+<div>
+<pre><code>Maven.resolver().resolve("G:A:war:V").withTransitivity().asFile();</code></pre>
+</div>
+</div>
+<div>
+<p>Packaging can be of any type, the most common are listed in following table.</p>
+</div>
+<p>Table 1. Packaging types</p>
+<table>
+<tbody>
+<tr>
+<td>jar</td>
+<td>war</td>
+<td>ear</td>
+<td>ejb</td>
+<td>rar</td>
+<td>par</td>
+<td>pom</td>
+<td>test-jar</td>
+<td>maven-plugin</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>Resolving a dependency with specific classifier. With classifier, such as <tt>tests</tt>, you need to include all <tt>G:A:P:C:V</tt> parts of coordinates string.
+<div>
+<div>
+<pre><code>Maven.resolver().resolve("G:A:test-jar:tests:V").withTransitivity().asFile();</code></pre>
+</div>
+</div>
+</li>
+<li>Returning resolved artifacts as different type than file. ShrinkWrap Resolvers provides shorthands for returning an <tt>InputStream</tt> instead of <tt>File</tt>. Additionally, with <tt>shrinkwrap-resolver-maven-impl-archive</tt>, you can additionally return results as ShrinkWrap archives, such as <tt>JavaArchive</tt>, <tt>WebArchive</tt> or <tt>EnterpriseArchive</tt>.
+<div>
+<div>
+<pre><code>Maven.resolver().resolve("G:A:V").withTransitivity().as(File.class);
+Maven.resolver().resolve("G:A:V").withTransitivity().as(InputStream.class);
+Maven.resolver().resolve("G:A:V").withTransitivity().as(JavaArchive.class);
+Maven.resolver().resolve("G:A:war:V").withoutTransitivity().asSingle(WebArchive.class);</code></pre>
+</div>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>
+<div>Note</div>
+</td>
+<td>
+<div>
+<p>It’s the responsibility of caller to close <tt>InputStream</tt>.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li>Working with artifact metadata. Sometimes, you are more interested in metadata, such as dependencies of a given artifacts instead of artifact itself. ShrinkWrap Resolvers provides you an API for such use cases:
+<div>
+<div>
+<pre><code>MavenResolvedArtifact artifact = Maven.resolver().resolve("G:A:war:V").withoutTransitivity()
+  .asSingle(MavenResolvedArtifact.class);
+
+MavenCoordinate coordinates = artifact.getCoordinate();
+MavenArtifactInfo[] dependencies = artifact.getDependencies();
+String version = artifact.getResolvedVersion();
+ScopeType scope = artifact.getScope();</code></pre>
+</div>
+</div>
+<div>
+<p>You can still retrieve resolved artifact from <tt>MavenResolvedArtifact</tt>:</p>
+</div>
+<div>
+<div>
+<pre><code>File file = artifact.asFile();</code></pre>
+</div>
+</div>
+</li>
+<li>Excluding a dependency of the artifact you want to resolve. In case you need to resolve an artifact while avoiding some of its dependencies, you can follow concept of <tt>&lt;exclusions&gt;</tt> known for Maven. Following snippet shows how to exclude <tt>G:B</tt> while resolving <tt>G:A:V</tt>.
+<div>
+<div>
+<pre><code>Maven.resolver()
+  .addDependencies(
+    MavenDependencies.createDependency("G:A:V", ScopeType.COMPILE, false,
+      MavenDependencies.createExclusion("G:B"))).resolve().withTransitivity().asFile();</code></pre>
+</div>
+</div>
+</li>
+<li>Using a strategy to control what will be resolved. In special cases, excluding a single dependency is not the behaviour you want to achieve. For instance, you want to resolve all test scoped dependencies of an artifact, you want to completely avoid some dependency while resolving multiple artifacts or maybe you’re interested in optional dependencies. For those cases, ShrinkWrap Resolvers allows you to specify a <tt>MavenResolutionStrategy</tt>. For instance, you can exclude <tt>G:B</tt> from <tt>G:A:V</tt> (e.g. the same as previous examples) via following snippet:
+<div>
+<div>
+<pre><code>Maven.resolver().resolve("G:A:V").using(new RejectDependenciesStrategy(false, "G:B")).asFile();</code></pre>
+</div>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>
+<div>Note</div>
+</td>
+<td>
+<div>
+<p>Methods <tt>withTransitivity()</tt> and <tt>withoutTransitivity</tt> are just a convenience methods to avoid you writing down strategy names. The first one calls <tt>TransitiveStrategy</tt> while the latter calls <tt>NotTransitiveStrategy</tt>.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<p>Strategies are composed of an array of <tt>MavenResolutionFilter</tt> instances and <tt>TransitiveExclusionPolicy</tt> instance. While defining the first allows you to transform dependency graph of resolved artifacts, the latter allows you to change default behavior when resolving transitive dependencies. By default, Maven does not resolve any dependencies in <em>provided</em> and <em>test</em> scope and it also skips <em>optional</em> dependencies. ShrinkWrap resolver behaves the same way by default, but allows you to change that behaviour. This comes handy especially if when you want to for instance resolve all provided dependencies of <tt>G:A:V</tt>. For your convenience, ShrinkWrap Resolvers ships with strategies described in following table.</p>
+</div>
+<p>Table 2. Strategies available in ShrinkWrap Resolver</p>
+<table>
+<tbody>
+<tr>
+<td><tt>AcceptAllStrategy</tt></td>
+<td>Accepts all dependencies of artifacts. Equals <tt>TransitiveStrategy</tt>.</td>
+</tr>
+<tr>
+<td><tt>AcceptScopesStrategy</tt></td>
+<td>Accepts only dependencies that have defined scope type.</td>
+</tr>
+<tr>
+<td><tt>CombinedStrategy</tt></td>
+<td>This allows you to combine multiple strategies together. The behaviour defined as logical AND between combined strategies.</td>
+</tr>
+<tr>
+<td><tt>NonTransitiveStrategy</tt></td>
+<td>Rejects all dependencies that were not directly specified for resolution. This means that all transitive dependencies of artifacts for resolution are rejected.</td>
+</tr>
+<tr>
+<td><tt>RejectDependenciesStrategy</tt></td>
+<td>Rejects dependencies defined by <tt>G:A</tt> (version is not important for comparison, so it can be omitted altogether). By default, it is transitive: <tt>RejectDependenciesStrategy("G:A", "G:B")</tt> means that all dependencies that origin at <tt>G:A</tt> or <tt>G:B</tt> are removed as well. If you want to change that behavior to reject defined dependencies but to keep their descendants, instantiate strategy as following: <tt>RejectDependenciesStrategy(false, "G:A", "G:B")</tt></td>
+</tr>
+<tr>
+<td><tt>TransitiveStrategy</tt></td>
+<td>Acceps all dependencies of artifacts. Equals <tt>AcceptAllStrategy</tt>.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>Control sources of resolution. ShrinkWrap Resolvers allows you to specify where do you want to resolve artifacts from. By default, it uses classpath (also known as Maven Reactor) and Maven Central repository, however you can programmatically alter the behavior.
+<div>
+<div>
+<pre><code>Maven.resolver().resolve("G:A:V").withClassPathResolution(false).withTransitivity().asFile();
+Maven.resolver().resolve("G:A:V").withMavenCentralRepo(false).withTransitivity().asFile();
+Maven.resolver().offline().resolve("G:A:V").withTransitivity().asFile();</code></pre>
+</div>
+</div>
+<div>
+<p>While classpath resolution is handy for testing SNAPSHOT artifacts that are not yet installed in any of the Maven repository, making ShrinkWrap Resolvers offline avoids accessing any repositories but local cache.</p>
+</div>
+</li>
+<li>While controlling classpath resolution and Maven Central comes handy, sometimes you might want to specify completely different <em>settings.xml</em> file than default for your test execution. This can be done via following API calls:
+<div>
+<div>
+<pre><code>Maven.configureResolver().fromFile("/path/to/settings.xml")
+  .resolve("G:A:V").withTransitivity().asFile();
+
+Maven.configureResolver().fromClassloaderResource("path/to/settings.xml")
+  .resolve("G:A:V").withTransitivity().asFile();</code></pre>
+</div>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>
+<div>Warning</div>
+</td>
+<td>
+<div>
+<p>ShrinkWrap Resolvers will not consume settings.xml you specified on command line (<tt>-s settings.xml</tt>) or in the IDE. It reads settings.xml files at their standard locations, which are <tt>~/.m2/settings.xml</tt> and <tt>$M2_HOME/conf/settings.xml</tt> unless overridden in the API or via System property.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div>
+<h3><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#resolution-of-artifacts-defined-in-pom-files" name="resolution-of-artifacts-defined-in-pom-files"></a>Resolution of artifacts defined in POM files</h3>
+<div>
+<p>While previous calls allow you to manually define what you want to resolve, in Maven projects, you have very likely specified this information already, in you <em>pom.xml</em> file. ShrinkWrap Resolvers allows you to follow <em>DRY</em> principle and it is able to load metadata included there.</p>
+</div>
+<div>
+<p>ShrinkWrap Resolvers constructs so called effective POM model (simplified, that is your <em>pom.xml</em> file plus parent hierarchy and Super POM, Maven default POM file). In order to construct the model, it uses all local repository, classpath repository and remote repositories. Once the model is loaded, you can use the metadata in there to be automatically added to artifacts to be resolved.</p>
+</div>
+<div>
+<ol>
+<li>Resolving an artifact with version defined in effective POM. In case, you want to resolve <tt>G:A:V</tt>, you can simply specify <tt>G:A</tt> instead. For artifacts with non JAR packaging type or classifier, you must use alternative syntax with question mark <em><tt>?</tt></em>, such as <tt>G:A:P:?</tt> or <tt>G:A:P:C:?</tt>.
+<div>
+<div>
+<pre><code>Maven.resolver().loadPomFromFile("/path/to/pom.xml").resolve("G:A").withTransitivity().asFile();
+
+Maven.resolver().loadPomFromClassLoaderResource("/path/to/pom.xml").resolve("G:A:P:?")
+  .withTransitivity().asFile();</code></pre>
+</div>
+</div>
+</li>
+<li>Resolving artifacts defined in effective POM. ShrinkWrap Resolvers allows you to artifacts defined with specific scope into list of artifacts to be resolved. This way, you don’t need to alter your tests if you change dependencies of your application. You can either use <tt>importDependencies(ScopeType…)</tt> or convenience methods, that cover the most frequent usages (<tt>importRuntimeDependencies()</tt>, <tt>importTestDependencies()</tt> and <tt>importRuntimeAndTestDependencies()</tt>:
+<div>
+<div>
+<pre><code>Maven.resolver().loadPomFromFile("/path/to/pom.xml")
+  .importDependencies(ScopeType.TEST, ScopeType.PROVIDED)
+  .resolve().withTransitivity().asFile();
+
+Maven.resolver().loadPomFromFile("/path/to/pom.xml").importRuntimeDependencies()
+  .resolve().withTransitivity().asFile();</code></pre>
+</div>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>
+<div>Tip</div>
+</td>
+<td>
+<div>
+<p>Runtime in convenience methods means all the Maven scopes that are used in application runtime, which are <tt>compile</tt>, <tt>runtime</tt>, <tt>import</tt> and <tt>system</tt>. If you need to select according to Maven scopes, go for <tt>importDependencies(ScopeType…)</tt> instead.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li>Specifying plugins to be activated. By default, ShrinkWrap Resolvers activates profiles based on property value, file presence, active by default profiles, operating system and JDK. However, you can force profiles in same way as you would do via <tt>-P</tt> in Maven.
+<div>
+<div>
+<pre><code>Maven.resolver().loadPomFromFile("/path/to/pom.xml", "activate-profile-1", "!disable-profile-2")
+        .importRuntimeAndTestDependencies().resolve().withTransitivity().asFile();</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div>
+<h3><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#system-properties" name="system-properties"></a>System properties</h3>
+<div>
+<p>ShrinkWrap Resolvers allows you to override any programmatical configuration via System properties.</p>
+</div>
+<p>Table 3. System properties altering behavior of ShrinkWrap Resolvers</p>
+<table>
+<tbody>
+<tr>
+<td><tt>org.apache.maven.user.settings</tt></td>
+<td>Path to user <em>settings.xml</em> file. In case both settings are provided, they are merged, user one has the priority.</td>
+</tr>
+<tr>
+<td><tt>org.apache.maven.global-settings</tt></td>
+<td>Path to global <em>settings.xml</em> file. In case both settings are provided, they are merged, user one has the priority.</td>
+</tr>
+<tr>
+<td><tt>org.apache.maven.security-settings</tt></td>
+<td>Path to <em>settings-security.xml</em>, that contains encrypted master password for password protected Maven repositories.</td>
+</tr>
+<tr>
+<td><tt>org.apache.maven.offline</tt></td>
+<td>Flag there to work in offline mode.</td>
+</tr>
+<tr>
+<td><tt>maven.repo.local</tt></td>
+<td>Path to local repository with cached artifacts. Overrides value defined in any of the <em>settings.xml</em> files.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div>
+<h2><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#experimental-features" name="experimental-features"></a>Experimental features</h2>
+<div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>
+<div>Warning</div>
+</td>
+<td>
+<div>
+<p>Following features are in their early development stages. However, they should work for the most common use case. Feel free to report a bug in <a href="https://issues.jboss.org/browse/SHRINKRES">SHRINKRES</a> project if that not your case.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<h3><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#shrinkwrap-resolver-maven-plugin" name="shrinkwrap-resolver-maven-plugin"></a>ShrinkWrap Resolver Maven Plugin</h3>
+<div>
+<p>ShrinkWrap Resolver Maven plugin allows you to propagate settings you specified on command line into test execution. Settings comprises of: paths to the <em>pom.xml</em> file and <em>settings.xml</em> files, activated/disabled profiles, offline flag and path to local repository. No support for IDE exists at this moment.</p>
+</div>
+<div>
+<p>In order to activate the plugin, you need to add following snippet into <tt>&lt;build&gt;</tt> section of your <em>pom.xml</em> file.</p>
+</div>
+<div>
+<div>
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.jboss.shrinkwrap.resolver&lt;/groupId&gt;
+  &lt;artifactId&gt;shrinkwrap-resolver-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;${version.shrinkwrap.resolvers}&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;propagate-execution-context&lt;/goal&gt;
+      &lt;/goals&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div>
+<p>Then, in your test you can do the following:</p>
+</div>
+<div>
+<div>
+<pre><code>Maven.configureResolverViaPlugin().resolve("G:A").withTransitivity().asFile();</code></pre>
+</div>
+</div>
+</div>
+<div>
+<h3><a class="anchor" href="http://planet.jboss.org/post/our_maven_dependency_resolver_goes_2_0_0_final#maven-importer" name="maven-importer"></a>Maven Importer</h3>
+<div>
+<p>MavenImporter is the most advanced feature of ShrinkWrap Resolvers. Instead of you being resposible for specifying how testing archive should look like, it reuses information defined in your <em>pom.xml</em> in order to construct the archive. So, no matter how your project looks like, you can get a full archive, as you would deploy it into the application server within a single like of code.</p>
+</div>
+<div>
+<p>MavenImporter is able to compile sources, construct <em>MANIFEST.MF</em>, fetch the dependencies and construct archive as Maven would do. It does not required any data to be prepared by Maven, however it can profit from those if they exist.</p>
+</div>
+<div>
+<div>
+<pre><code>ShrinkWrap.create(MavenImporter.class)
+  .loadPomFromFile("/path/to/pom.xml").importBuildOutput().as(WebArchive.class);
+
+ShrinkWrap.create(MavenImporter.class)
+  .loadPomFromFile("/path/to/pom.xml", "activate-profile-1", "!disable-profile-2")
+  .importBuildOutput().as(WebArchive.class);
+
+ShrinkWrap.create(MavenImporter.class).configureFromFile("/path/to/settings.xml")
+  .loadPomFromFile("/path/to/pom.xml").importBuildOutput().as(JavaArchive.class);</code></pre>
+</div>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>
+<div>Important</div>
+</td>
+<td>
+<div>
+<p>Maven Importer does not currently support other packagings but JAR and WAR. Also, it does not honor many of Maven plugins, currently it supports their limited subset.</p>
+</div>
+<div>
+<p>Additionally, using different JDK for running tests and compiling sources is not supported, although it should work if you are for instance compiling sources targeting JDK6 while being bootstrapped on JDK7.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<br>  <a rel="nofollow" href="http://feeds.wordpress.com/1.0/gocomments/exitcondition.wordpress.com/361/"><img alt="" border="0" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/saved_resource"></a> <img alt="" border="0" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/b.gif" width="1" height="1">
+		</div>
+				</div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+</div>
+<div id="site-info">
+	
+	<div class="footer">
+	   <p>Sponsored by </p>
+	   <div id="footerlogo">
+	      <a title="Red Hat, Inc." href="http://www.redhat.com/">
+	         <h6>Red Hat, Inc.</h6>
+	      </a>
+	    </div>
+	  <p>
+	    <a href="http://www.jboss.org/about.html">About</a>   |   
+	    <a href="http://www.jboss.org/contact.html">Contact Us</a>   |  
+	    <a href="http://www.redhat.com/about/work">Jobs</a>   |   
+	    <a href="http://www.jboss.org/help.html">Help</a>
+	  </p>
+	</div>
+</div>
+</div>
+
+ 
+<script type="text/javascript" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/elqCfg.js"></script> 
+<script type="text/javascript" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/elqImg.js"></script> 
+
+
+<div id="oTags">
+
+<script type="text/javascript" src="./Our Maven Dependency Resolver Goes 2.0.0 Final   Exit Condition   Planet JBoss Community_files/s_code.js"></script>
+
+<script>
+</script>
+
+<script type="text/javascript"></script><noscript>&lt;a href="http://www.omniture.com" title="Web Analytics"&gt;&lt;img src="https://smtrcs.redhat.com/b/ss/redhatjbossorg/1/H.21--NS/0?[AQB]%26cdp=3%26[AQE]" height="1" width="1" border="0" /&gt;&lt;/a&gt;</noscript>
+
+
+</div>
+
+
+</body></html>
