@@ -17,11 +17,13 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 	
 	<import resource="camelContext.xml" /> 
 	<import resource="hornetJmsContext.xml" />
-	
+	<!-- 
 	<import resource="wmqContext.xml" />
 	<import resource="oracleContext.xml" />
-	
+	-->
 	
 	<!--
 	-->
+	<bean id="SpringAppCtxManager" class="org.helios.jboss7.spring.SpringAppCtxManager" factory-method="getInstance" />
+	
 </beans>

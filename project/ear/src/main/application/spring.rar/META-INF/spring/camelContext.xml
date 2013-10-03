@@ -39,11 +39,11 @@
 	</bean>
 	
 	
-
+	<!-- 
 	<bean id="wmqJms" class="org.apache.camel.component.jms.JmsComponent">
 		<property name="connectionFactory" ref="wmqTxJmsConnectionFactory"/>		
 	</bean>
-
+ 	-->
 	
 	
 	
@@ -57,9 +57,10 @@
 	    		<to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" />
 	    		<to id="ClearingEventConsumerLogger" uri="log:spring.container.HeliosContainerMain?level=INFO" />
 	    		<to id="WMQClearingPublisher" uri="hornetJms:topic:HornetClearingTopic" />
+	    		<to id="WMQClearingPublisher" uri="wmqJms:topic:TOPIC.CLEARING.EVENT" />
 	    	 -->
-	    	 <to id="WMQClearingPublisher" uri="wmqJms:topic:TOPIC.CLEARING.EVENT" />
 	    	 
+	    	 <to id="WMQClearingPublisher" uri="hornetJms:topic:HornetClearingTopic" />
 	    	 <to id="MockTopic" uri="mock:mockClearingTopic" />
 	  	</route>
 	</camelContext>

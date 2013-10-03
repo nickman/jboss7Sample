@@ -32,10 +32,9 @@
            <share-prepared-statements>false</share-prepared-statements>
        </statement>
    </xa-datasource>
-   
-	<xa-datasource jndi-name="java:jboss/datasources/OracleXADS" pool-name="OraDB" enabled="true" use-java-context="true">
-	 
 
+<!--    
+	<xa-datasource jndi-name="java:jboss/datasources/OracleXADS" pool-name="OraDB" enabled="true" use-java-context="true">
 	    <xa-datasource-property name="URL">jdbc:oracle:thin:@localhost:1521:orcl</xa-datasource-property>
 	    <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>	    
 	    <driver>sample-ear.earoracle.jdbc.OracleDriver_11_2</driver>
@@ -63,7 +62,6 @@
 	        <background-validation>true</background-validation>
 	        <background-validation-millis>30000</background-validation-millis>
 
-	        <!-- <valid-connection-checker-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleValidConnectionChecker</valid-connection-checker-class-name> -->
 	        <exception-sorter class-name="org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter"></exception-sorter>
 
 	    </validation>
@@ -82,7 +80,7 @@
 	    
 	 
 	</xa-datasource>
-   
+-->   
    
 </datasources>
 

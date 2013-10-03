@@ -80,7 +80,6 @@
 	========================================
 	Oracle JDBC  and WebSphereMQ JMS Artifacts
 	========================================
-	-->
 	
 		<dependency>
 		  <groupId>com.oracle</groupId>
@@ -99,6 +98,7 @@
 		  <version>${mq.version}</version>
 		</dependency>
 		
+	-->
 
 	
 	
@@ -356,6 +356,13 @@
 	<artifactId>spring-orm</artifactId>
 	<version>${spring.version}</version>
       </dependency>
+      
+      <dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-web</artifactId>
+	<version>${spring.version}</version>
+      </dependency>
+      
             
   </dependencies>
   </dependencyManagement>
