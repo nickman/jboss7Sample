@@ -155,7 +155,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
-            <version>${arguillian.version}</version>
+            <version>${arquillian.version}</version>
             <scope>test</scope>
         </dependency>        
     
