@@ -1,0 +1,16 @@
+#parse("header.vm")
+
+
+<table cellspacing="0" cellpadding="3">
+<caption>Consumer</caption>
+#foreach ($entry in $consumer.properties.entrySet())
+<tr>
+	<td>$entry.key</td>
+	<td>$entry.value</td>
+</tr>
+#end
+</table>
+
+
+
+#parse("footer.vm")

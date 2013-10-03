@@ -28,7 +28,6 @@
 	<constructor-arg ref="JMXMPURL"/>
 	<constructor-arg ><map /></constructor-arg >
 	<constructor-arg ref="MBeanServer" />
-
       </bean>
 
 	

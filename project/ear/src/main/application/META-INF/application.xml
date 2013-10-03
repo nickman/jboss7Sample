@@ -10,11 +10,5 @@
   <module><connector>amq-config.rar</connector></module>  
   <module><ejb>services.jar</ejb></module>
   <module><connector>spring.rar</connector></module>
-  <module>
-    <web>
-      <web-uri>camelwatch.war</web-uri>
-      <context-root>/camelwatch</context-root>
-    </web>
-  </module>
   <library-directory>lib</library-directory>
 </application>

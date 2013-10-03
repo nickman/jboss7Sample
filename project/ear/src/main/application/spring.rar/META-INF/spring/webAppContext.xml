@@ -8,23 +8,6 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
 
-	<import resource="jmxmpContext.xml" />
-	<import resource="groovyContext.xml" />
-	<import resource="jtaContext.xml" />
-	<import resource="jmsContext.xml" />
-	<import resource="dbContext.xml" />
-	<import resource="hibernateContext.xml" />
-	<import resource="webAppContext.xml" />
-	
-	<import resource="camelContext.xml" /> 
-	<import resource="hornetJmsContext.xml" />
-	<!-- 
-	<import resource="wmqContext.xml" />
-	<import resource="oracleContext.xml" />
-	-->
-	
-	<!--
-	-->
-	<bean id="SpringAppCtxManager" class="org.helios.jboss7.spring.SpringAppCtxManager" factory-method="getInstance" />
+	<bean id="WebContextFactory" class="org.helios.jboss7.spring.WebContextFactory"/>
 	
 </beans>

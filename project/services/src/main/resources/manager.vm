@@ -1,0 +1,49 @@
+#parse("header.vm")
+
+<h1>Camel Watch</h1>
+
+
+
+<table cellspacing="0" cellpadding="3">
+<caption>Contexts</caption>
+<tr>
+ <th>Camel Id</th>
+ <th>Camel Version</th>
+ <th>State</th>
+ <th>Inflight</th>
+ <th>Load</th>
+ <th>Uptime</th>
+</tr>
+
+#foreach ($context in $contexts)
+<tr>
+	<td><a href="#springUrl("/context/$context.properties.CamelId")">$context.properties.CamelId</a></td>
+	<td>$context.properties.CamelVersion</td>
+ 	<td>$context.properties.State</td>
+ 	<td>$!context.properties.InflightExchanges</td>
+ 	<td>$context.properties.Load01 $context.properties.Load05 $context.properties.Load15</td>
+	<td>$context.properties.Uptime</td>
+</tr>
+#end
+</table>
+
+
+<table cellspacing="0" cellpadding="3">
+<caption>Components</caption>
+<tr>
+ <th>Camel Id</th>
+ <th>Component Name</th>
+ <th>State</th>
+</tr>
+
+#foreach ($component in $components)
+<tr>
+	<td>$component.properties.CamelId</td>
+	<td>$component.properties.ComponentName</td>
+ 	<td>$component.properties.State</td>
+</tr>
+#end
+</table>
+
+
+#parse("footer.vm")

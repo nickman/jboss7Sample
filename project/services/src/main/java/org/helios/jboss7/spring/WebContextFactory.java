@@ -27,11 +27,14 @@ package org.helios.jboss7.spring;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.helios.jboss7.spring.context.ApplicationContextService;
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
 /**
@@ -42,12 +45,12 @@ import org.springframework.web.context.support.GenericWebApplicationContext;
  * <p><code>org.helios.jboss7.spring.WebContextFactory</code></p>
  */
 
-public class WebContextFactory implements ApplicationContextAware {
+public class WebContextFactory implements ApplicationContextAware, ApplicationListener<ContextClosedEvent> {
 	/** The application context this bean is deployed in */
 	protected ApplicationContext applicationContext = null;
 	/** The application context registry */
 	@Autowired(required=false)
-	protected ApplicationContextService appCtxService = null;
+	protected SpringAppCtxManager appCtxManager = null;
 	/** A map of already created web app contexts */
 	protected final Map<String, GenericWebApplicationContext> webAppContexts = new ConcurrentHashMap<String, GenericWebApplicationContext>();
 	/**
@@ -59,8 +62,41 @@ public class WebContextFactory implements ApplicationContextAware {
 		this.applicationContext = applicationContext;
 	}
 	
+	/**
+	 * Returns a GenericWebApplicationContext for the passed servlet context
+	 * @param sc The servlet context to initialize a new GenericWebApplicationContext with
+	 * @return a GenericWebApplicationContext for the passed servlet context
+	 */
 	public GenericWebApplicationContext getWebContext(ServletContext sc) {
-		return null;
+		if(sc==null) return null;
+		String name = sc.getServletContextName();
+		GenericWebApplicationContext webAppCtx = webAppContexts.get(name);
+		if(webAppCtx==null) {
+			synchronized(webAppContexts) {
+				webAppCtx = webAppContexts.get(name);
+				if(webAppCtx==null) {
+					webAppCtx = new GenericWebApplicationContext(sc);
+					webAppCtx.setParent(applicationContext);
+					webAppCtx.addApplicationListener(this);
+					String displayName = applicationContext.getDisplayName() + "/WebApplicationContext/" + name;
+					webAppCtx.setDisplayName(displayName);
+					if(appCtxManager!=null) {
+						appCtxManager.register(displayName, webAppCtx);
+					}
+					webAppContexts.put(name, webAppCtx);
+				}
+			}
+		}
+		return webAppCtx;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+	 */
+	@Override
+	public void onApplicationEvent(ContextClosedEvent event) {
+		webAppContexts.remove(event.getApplicationContext().getDisplayName());		
 	}
 
 }

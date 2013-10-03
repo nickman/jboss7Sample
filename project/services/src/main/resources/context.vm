@@ -1,0 +1,110 @@
+#parse("header.vm")
+
+<h1>Camel Watch: $camelId</h1>
+
+
+<table cellspacing="0" cellpadding="3">
+<caption>Routes</caption>
+<tr>
+ <th>Route Id</th>
+ <th>State</th>
+ <th>Last Completed</th>
+ <th>Last Failure</th>
+ <th>Inflight</th>
+ <th>Load</th>
+ <th>Commands</th>
+</tr>
+
+#foreach ($route in $routes)
+<tr>
+	<td><a href="#springUrl("/route/$route.properties.RouteId")">$route.properties.RouteId</a></td>
+ 	<td>$route.properties.State</td>
+	<td>$!datetool.format("dd MMM yyyy HH:mm:ss", $route.properties.LastExchangeCompletedTimestamp)</td>
+	<td>$!datetool.format("dd MMM yyyy HH:mm:ss", $route.properties.LastExchangeFailureTimestamp)</td>
+ 	<td>$!route.properties.InflightExchanges</td>
+ 	<td>$!route.properties.Load01 / $!route.properties.Load05 / $!route.properties.Load15</td>
+	<td><a href="#springUrl("/route/$route.properties.RouteId/start")">Start</a> <a href="#springUrl("/route/$route.properties.RouteId/stop")">Stop</a> <a href="#springUrl("/route/$route.properties.RouteId/suspend")">Suspend</a> 
+			<a href="#springUrl("/route/$route.properties.RouteId/resume")">Resume</a> <a href="#springUrl("/route/$route.properties.RouteId/dump")">Export</a></td>
+</tr>
+#end
+</table>
+
+
+
+
+<table cellspacing="0" cellpadding="3">
+<caption>Consumers</caption>
+<tr>
+ <th>Name</th>
+ <th>State</th>
+ <th>Suspended</th>
+ <th>Delay</th>
+ <th>Inflight</th>
+ <th>Commands</th>
+</tr>
+#foreach ($consumer in $consumers)
+<tr>
+	<td><a href="#springUrl("/consumer/$consumer.name")">$consumer.properties.RouteId</a></td>
+ 	<td>$consumer.properties.State</td>
+ 	<td>$!consumer.properties.Suspended</td>
+ 	<td>$!consumer.properties.Delay</td>
+ 	<td>$!consumer.properties.InflightExchanges</td>
+	<td rowspan="2"><a href="#springUrl("/consumer/$consumer.name/start")">Start</a> <a href="#springUrl("/consumer/$consumer.name/stop")">Stop</a> <a href="#springUrl("/consumer/$consumer.name/suspend")">Suspend</a> <a href="#springUrl("/consumer/$consumer.name/resume")">Resume</a></td>
+</tr>
+<tr>
+	<td colspan="5">$consumer.properties.EndpointUri</td>
+</tr>
+#end
+</table>
+
+
+
+
+
+<table cellspacing="0" cellpadding="3">
+<caption>Endpoints</caption>
+<tr>
+	<th>View</th>
+	<th>Endpoint URI</th>
+ <th>State</th>
+ <th>Singleton</th>
+</tr>
+#foreach ($endpoint in $endpoints)
+<tr>
+	<form method="POST" action="#springUrl("/endpoint")">
+	<input type="hidden" name="endpointName" value="$endpoint.name"/>
+	<td><input type="submit" value="View"/></td>
+	</form>
+	<td>$displaytool.truncate($endpoint.properties.EndpointUri, 150)</td>
+ 	<td>$!endpoint.properties.State</td>
+ 	<td>$!endpoint.properties.Singleton</td>
+</tr>
+<tr>
+#end
+</table>
+
+
+
+
+<table cellspacing="0" cellpadding="3">
+<caption>Error Handlers</caption>
+<tr>
+ <th>Name</th>
+ <th>Support Redelivery</th>
+ <th>Maximum Redeliveries</th>
+ <th>Dead Letter Channel</th>
+</tr>
+#foreach ($errorhandler in $errorhandlers)
+<tr>
+	<td><a href="#springUrl("/errorHandler/$errorhandler.name")">$errorhandler.name</a></td>
+	<td>$errorhandler.properties.SupportRedelivery</td>
+ 	<td>$errorhandler.properties.MaximumRedeliveries</td>
+ 	<td>$errorhandler.properties.DeadLetterChannel</td>
+</tr>
+#end
+</table>
+
+
+
+
+#parse("footer.vm")
