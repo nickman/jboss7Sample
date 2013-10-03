@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+
+#branding, #site-info, #tabnav-panel, .breadcrumb-more {
+  display: none !important;
+}
+
+body {
+  color: black;
+  background: white;
+}
+
+a {
+  text-decoration : underline;
+  color : #336699;
+}
