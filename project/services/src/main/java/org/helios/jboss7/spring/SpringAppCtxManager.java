@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
+import org.helios.jboss7.spring.context.ApplicationContextService;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -15,6 +16,7 @@ import org.springframework.context.event.ApplicationContextEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * <p>Title: SpringAppCtxManager</p>
@@ -52,6 +54,14 @@ public class SpringAppCtxManager implements ApplicationContextAware, Application
 	
 	protected SpringAppCtxManager() {}
 	
+	
+	/**
+	 * Returns the root context
+	 * @return the root context
+	 */
+	protected GenericApplicationContext getRootContext() {
+		return (GenericApplicationContext)contexts.get(ROOT_NAME); 
+	}
 	
 	/**
 	 * Returns the named application context or null if the name is not resolved
@@ -124,7 +134,7 @@ public class SpringAppCtxManager implements ApplicationContextAware, Application
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		if(applicationContext!=null) {
 			if(contexts.putIfAbsent(ROOT_NAME, applicationContext)==null) {
-				register(ROOT_NAME, applicationContext);
+				register(ROOT_NAME, applicationContext);				
 			} 
 		}		
 	}
@@ -148,6 +158,9 @@ public class SpringAppCtxManager implements ApplicationContextAware, Application
 			contexts.remove(event.getApplicationContext().getDisplayName());
 		} else if(event instanceof ContextRefreshedEvent) {
 			register(event.getApplicationContext().getDisplayName(), event.getApplicationContext());
+			if(ROOT_NAME.equals(event.getApplicationContext().getDisplayName())) {
+				new ApplicationContextService(event.getApplicationContext());
+			}
 		}		
 	}
 }

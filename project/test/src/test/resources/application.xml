@@ -10,5 +10,6 @@
   <module><connector>amq-config.rar</connector></module>  
   <module><connector>spring.rar</connector></module>
   <module><ejb>services.jar</ejb></module>  
+  <module><ejb>test-classes.jar</ejb></module>
   <library-directory>lib</library-directory>
 </application>

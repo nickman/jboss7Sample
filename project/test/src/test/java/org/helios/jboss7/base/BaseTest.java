@@ -25,24 +25,24 @@
 package org.helios.jboss7.base;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.lang.management.ManagementFactory;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.helios.jboss7.spring.SpringAppCtxManager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.formatter.Formatters;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.jboss.shrinkwrap.resolver.api.maven.PomEquippedResolveStage;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
+
 import org.junit.runner.RunWith;
 
 /**
@@ -55,42 +55,38 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class BaseTest {
 	/** Instance logger */
-	protected final Logger log = Logger.getLogger(getClass());
+	protected static final Logger log = Logger.getLogger(BaseTest.class);
 	/** The currently executing test name */
 	@Rule public final TestName name = new TestName();
+	
+	public static final MBeanServer SERVER = ManagementFactory.getPlatformMBeanServer();
+	
 
 	@Deployment
-    public static JavaArchive createDeployment() {
-		PomEquippedResolveStage resolved = Maven.resolver().loadPomFromFile("../ear/pom.xml");
+    public static EnterpriseArchive createDeployment() {
+		log.info("Generating Test EAR");
+		//PomEquippedResolveStage resolved = Maven.resolver().loadPomFromFile("../ear/pom.xml");
 		// org.helios.jboss7:ear:1.0-SNAPSHOT
-		EnterpriseArchive ea = ShrinkWrap.create(EnterpriseArchive.class, "test.ear")
-			.addAsDirectories("../ear/target/sample.ear");
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream("/tmp/a.ear");
-			ea.writeTo(fos, Formatters.SIMPLE);
-		} catch (Exception ex) {
-			ex.printStackTrace(System.err);
-		} finally {
-			if(fos!=null) try { fos.close(); } catch (Exception ex) {}
-		}
-			
-        return ShrinkWrap.create(JavaArchive.class, "test.jar")
-            .addClasses(SpringAppCtxManager.class)     
-            
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+		File earFile = new File("../ear/target/sample-ear.ear");
+		JavaArchive testJar = ShrinkWrap.create(JavaArchive.class, "test-classes.jar")
+				.addClasses(BaseTest.class)
+				.addAsDirectory(".\target\test-classes");
+		return ShrinkWrap.createFromZipFile(EnterpriseArchive.class, earFile)
+				
+				.addAsManifestResource(new File("./src/test/resources/application.xml"))
+				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+				.addAsModules(testJar);
+
     }
+	
+	static {
+		//BasicConfigurator.configure();
+	}
 	
 	public static void main(String[] args) {
 		BasicConfigurator.configure();		
 		Logger LOG = Logger.getLogger(BaseTest.class);
-		LOG.info("Starting Maven Resolver Test");
-		File[] files = Maven.resolver().offline().resolve("org.helios.jboss7:ear:ear:1.0-SNAPSHOT").withTransitivity().asFile();
-//		PomEquippedResolveStage resolved = Maven.resolver().offline().loadPomFromFile("../ear/pom.xml").importRuntimeDependencies();
-//		MavenFormatStage mss = resolved.resolve("org.helios.jboss7:ear:1.0-SNAPSHOT").withoutTransitivity();
-		for(File f : files) {
-			LOG.info(f.getAbsolutePath());
-		}
+		createDeployment();
 		
 	}
 	
@@ -104,8 +100,12 @@ public class BaseTest {
 	
 
 	@Test
-	public void testGetRootContext() {
-		
+	public void testGetRootContext() throws Exception {
+		//Class<?> clazz = Class.forName("org.helios.jboss7.spring.SpringRootContext");
+		ObjectName on = new ObjectName("org.helios.jboss7.spring.context:service=ApplicationContextService");
+		//ApplicationContext ctx = (ApplicationContext)
+		Object obj = SERVER.getAttribute(on, "Instance");
+		log.info("==== Running testGetRootContext: [" + obj.getClass().getName() + "] ====");
 	}
 
 }

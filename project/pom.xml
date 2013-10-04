@@ -37,7 +37,11 @@
     <shrinkwrap.version>2.0.0</shrinkwrap.version>
     <jbossas.version>7.2.0.Final</jbossas.version>
     
-    <version.org.jboss.bom>1.0.7.Final</version.org.jboss.bom>
+    <spec.version>1.0.1.Final</spec.version>
+    
+    
+    
+    <version.org.jboss.bom>3.0.2.Final-redhat-3</version.org.jboss.bom>
     <maven.compiler.target>1.7</maven.compiler.target>
     <maven.compiler.source>1.7</maven.compiler.source>
     <version.compiler.plugin>2.3.1</version.compiler.plugin>
@@ -46,6 +50,7 @@
     <version.jar.plugin>2.2</version.jar.plugin>
     <version.surefire.plugin>2.10</version.surefire.plugin>
     <version.war.plugin>2.1.1</version.war.plugin>
+    
     
     
   </properties>
@@ -122,6 +127,8 @@
 	========================================
 	-->
     
+    
+<!--    
     <dependency>
 	<groupId>org.jboss.bom</groupId>
 	<artifactId>jboss-javaee-6.0-with-tools</artifactId>
@@ -129,6 +136,8 @@
 	<type>pom</type>
 	<scope>import</scope>
     </dependency>
+    
+    
 
     <dependency>
 	<groupId>org.jboss.bom</groupId>
@@ -137,6 +146,8 @@
 	<type>pom</type>
 	<scope>import</scope>
     </dependency>
+    
+-->    
     
         <dependency>
             <groupId>org.jboss.spec</groupId>
