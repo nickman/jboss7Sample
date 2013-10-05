@@ -17,6 +17,14 @@
     <module>test</module>
   </modules>
   
+  <repositories>
+      <repository>
+	  <id>jboss-public-repository</id>
+	  <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+      </repository>
+  </repositories>
+  
+  
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
