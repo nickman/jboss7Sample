@@ -27,11 +27,13 @@ package org.helios.jboss7.base;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 
+import javax.annotation.Resource;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.helios.jboss7.jms.JMSHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -42,8 +44,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
-
 import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
 
 /**
  * <p>Title: BaseTest</p>
@@ -61,6 +63,11 @@ public class BaseTest {
 	
 	public static final MBeanServer SERVER = ManagementFactory.getPlatformMBeanServer();
 	
+	@Resource(mappedName="java:jboss/exported/sample-ear/services/SpringRootContext!org.springframework.context.ApplicationContext", type=ApplicationContext.class)
+	//@EJB
+	ApplicationContext appCtx = null;
+	
+	
 
 	@Deployment
     public static EnterpriseArchive createDeployment() {
@@ -69,12 +76,13 @@ public class BaseTest {
 		// org.helios.jboss7:ear:1.0-SNAPSHOT
 		File earFile = new File("../ear/target/sample-ear.ear");
 		JavaArchive testJar = ShrinkWrap.create(JavaArchive.class, "test-classes.jar")
-				.addClasses(BaseTest.class)
+				.addClasses(BaseTest.class, JMSHelper.class)
+				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsDirectory(".\target\test-classes");
 		return ShrinkWrap.createFromZipFile(EnterpriseArchive.class, earFile)
 				
 				.addAsManifestResource(new File("./src/test/resources/application.xml"))
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+				
 				.addAsModules(testJar);
 
     }
@@ -105,7 +113,10 @@ public class BaseTest {
 		ObjectName on = new ObjectName("org.helios.jboss7.spring.context:service=ApplicationContextService");
 		//ApplicationContext ctx = (ApplicationContext)
 		Object obj = SERVER.getAttribute(on, "Instance");
-		log.info("==== Running testGetRootContext: [" + obj.getClass().getName() + "] ====");
+		log.info("\n\t====\n\tRunning testGetRootContext: [" + obj.getClass().getName() + "]\n\t====");
+		
+		log.info("\n\t====\n\tJMS ConnFact: [" + JMSHelper.getConnectionFactory("java:jboss/eis/Connection")+ "]\n\t====");
+		log.info("\n\t====\n\tJMS AppCtx: [" + appCtx + "]\n\t====");
 	}
 
 }
