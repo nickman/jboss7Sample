@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <datasources xmlns="http://www.ironjacamar.org/doc/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
    <xa-datasource jndi-name="java:jboss/datasources/ReportingH2XADS" pool-name="ReportingH2XADS" enabled="true" use-ccm="true">
-       <xa-datasource-property name="URL">jdbc:h2:mem:reporting;DB_CLOSE_DELAY=-1</xa-datasource-property>
+       <xa-datasource-property name="URL">jdbc:h2:~/.jboss7/h2/db;AUTO_SERVER=TRUE;JMX=TRUE;MULTI_THREADED=TRUE;DB_CLOSE_DELAY=-1</xa-datasource-property>
        <xa-datasource-property name="User">sa</xa-datasource-property>
        <xa-datasource-property name="Password"></xa-datasource-property>
        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
-       <driver>h2</driver>  <!-- sample-ear.earorg.h2.Driver_1_3 OR  h2 -->
+       <driver>sample-ear.ear</driver>  <!-- sample-ear.earorg.h2.Driver_1_3 OR  h2 -->
        <xa-pool>
            <min-pool-size>2</min-pool-size>
            <max-pool-size>10</max-pool-size>
@@ -32,6 +33,7 @@
            <share-prepared-statements>false</share-prepared-statements>
        </statement>
    </xa-datasource>
+	   
 
 <!--    
 	<xa-datasource jndi-name="java:jboss/datasources/OracleXADS" pool-name="OraDB" enabled="true" use-java-context="true">

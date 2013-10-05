@@ -75,33 +75,36 @@ public class JDBCHelper {
 	
 	/**
 	 * Executes the SQL script read from the named classpath resource
-	 * @param resourceName The name of a classpath resource containing a SQL script
+	 * @param resourceNames The names of classpath resources containing a SQL script
 	 */
-	public void runSqlFromResource(String resourceName) {
-		InputStream is = null;
-		FileOutputStream fos = null;
-		File f = null;
-		try {
-			is = JDBCHelper.class.getClassLoader().getResourceAsStream(resourceName);
-			f = File.createTempFile("tmp", ".sql");
-			fos = new FileOutputStream(f);
-			byte[] buff = new byte[8096];
-			int bytesRead = -1;
-			while((bytesRead = is.read(buff))!=-1) {
-				fos.write(buff, 0, bytesRead);
+	public void runSqlFromResource(String...resourceNames) {
+		for(String resourceName : resourceNames) {
+			if(resourceName==null || resourceName.trim().isEmpty()) continue;
+			InputStream is = null;
+			FileOutputStream fos = null;
+			File f = null;
+			try {
+				is = JDBCHelper.class.getClassLoader().getResourceAsStream(resourceName);
+				f = File.createTempFile("tmp", ".sql");
+				fos = new FileOutputStream(f);
+				byte[] buff = new byte[8096];
+				int bytesRead = -1;
+				while((bytesRead = is.read(buff))!=-1) {
+					fos.write(buff, 0, bytesRead);
+				}
+				is.close();
+				is = null;
+				fos.flush();
+				fos.close();
+				fos = null;
+				runSql(f.getAbsolutePath());
+			} catch (Exception ex) {
+				throw new RuntimeException("Failed to execute SQL Script from resource [" + resourceName + "]", ex);
+			} finally {
+				if(is!=null) try { is.close(); } catch (Exception e) {}
+				if(fos!=null) try { fos.close(); } catch (Exception e) {}
+				if(f!=null) f.delete();
 			}
-			is.close();
-			is = null;
-			fos.flush();
-			fos.close();
-			fos = null;
-			runSql(f.getAbsolutePath());
-		} catch (Exception ex) {
-			throw new RuntimeException("Failed to execute SQL Script from resource [" + resourceName + "]", ex);
-		} finally {
-			if(is!=null) try { is.close(); } catch (Exception e) {}
-			if(fos!=null) try { fos.close(); } catch (Exception e) {}
-			if(f!=null) f.delete();
 		}
 	}
 	

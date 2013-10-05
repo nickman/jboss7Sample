@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.h2.server.Service;
+import org.h2.server.TcpServer;
 import org.h2.server.web.WebServer;
 import org.h2.tools.Server;
 import org.springframework.context.ApplicationListener;
@@ -108,6 +109,20 @@ public class H2ListenerController implements ApplicationListener<ApplicationCont
 				LOG.error("Failed to start H2 WebService", e);
 			}			
 		}
+		if(tcpPort>0) {
+			tcpService = new TcpServer();
+			try {
+				//conn = dataSource.getConnection();				
+				tcpServer = new Server(tcpService, "-tcp", "-tcpAllowOthers", "-tcpPort", "" + tcpPort);
+				
+				tcpServer.start();
+				
+				LOG.info("Started H2 TCP Listener on port [" + tcpPort + "]  --> [" + tcpServer.getURL() + "]");
+			} catch (SQLException e) {
+				LOG.error("Failed to start H2 TcpService", e);
+			}			
+		}
+		
 	}
 	
 	protected void stopServers() {
@@ -118,6 +133,12 @@ public class H2ListenerController implements ApplicationListener<ApplicationCont
 		}
 		if(conn!=null) {
 			try { conn.close(); } catch (Exception ex) {}
+			conn = null;
+		}
+		if(tcpServer!=null) {
+			tcpServer.stop();
+			tcpPort = -1;
+			LOG.info("Stopped H2 Tcp Listener");
 		}
 	}
 	
