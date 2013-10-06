@@ -44,6 +44,7 @@
     <mq.version>7.0.1.9</mq.version>
     <shrinkwrap.version>2.0.0</shrinkwrap.version>
     <jbossas.version>7.2.0.Final</jbossas.version>
+    <gson.version>2.2.2</gson.version>
     
     <spec.version>1.0.1.Final</spec.version>
     
@@ -179,6 +180,16 @@
             <scope>test</scope>
         </dependency>        
     
+      <!-- ==========================================================
+	JSON Marshalling
+	  ========================================================== -->
+
+      <dependency>
+	<groupId>com.google.code.gson</groupId>
+	<artifactId>gson</artifactId>
+	<version>${gson.version}</version>
+      </dependency>
+
 
       <!--
 	========================================

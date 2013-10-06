@@ -39,16 +39,23 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 	        </list>
 	    </property>
 	</bean>
+
+	    <bean id="H2WebServer" class="org.h2.tools.Server"
+	        factory-method="createWebServer" init-method="start" destroy-method="stop">
+	        <constructor-arg value="-web,-webAllowOthers,-webPort,4081" />
+	    </bean>
+	    <bean id="H2TCPServer" class="org.h2.tools.Server"
+	        factory-method="createTcpServer" init-method="start" destroy-method="stop">
+	        <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,4083" />
+	    </bean>	   
+
 	
+	<!--
 	<bean id="ConsoleController" class="org.helios.jboss7.h2.H2ListenerController">
 		<property name="webPort" value="3082"/>
 		<property name="dataSource" ref="primaryDataSource"/>
 	</bean>
-
-	<bean id="H2TCPListener" class="org.helios.jboss7.h2.H2ListenerController">
-		<property name="tcpPort" value="3081"/>
-		<property name="dataSource" ref="primaryDataSource"/>
-	</bean>
+	-->
 	
 	
 

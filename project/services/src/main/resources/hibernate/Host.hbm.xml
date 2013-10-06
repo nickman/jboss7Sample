@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="org.helios.apmrouter.catalog.domain.Host" entity-name="host" table="HOST" schema="PUBLIC" catalog="DB">
+        <id name="hostId" type="java.lang.Integer">
+            <column name="HOST_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true" unique="true">
+                <comment>The short or preferred host name</comment>
+            </column>
+        </property>
+        <property name="domain" type="string">
+            <column name="DOMAIN" not-null="true" unique="true">
+                <comment>The domain that the host is in</comment>
+            </column>
+        </property>
+        
+        <property name="ip" type="string">
+            <column name="IP" length="15">
+                <comment>The ip address of the host</comment>
+            </column>
+        </property>
+        <property name="fqn" type="string">
+            <column name="FQN">
+                <comment>The fully qualified name of the host</comment>
+            </column>
+        </property>
+        <property name="firstConnected" type="timestamp">
+            <column name="FIRST_CONNECTED" length="23" not-null="true">
+                <comment>The first time the host was seen.</comment>
+            </column>
+        </property>
+        <property name="lastConnected" type="timestamp">
+            <column name="LAST_CONNECTED" length="23" not-null="true">
+                <comment>The last time connected.</comment>
+            </column>
+        </property>
+
+        <property name="agentsConnected" type="int">
+            <column name="AGENTS" not-null="true">
+                <comment>The number of agents connected from this host</comment>
+            </column>
+        </property>
+        
+        <property name="connected" type="timestamp">
+            <column name="CONNECTED" length="23">
+                <comment>The time an agent from this host connected or null if not connected.</comment>
+            </column>
+        </property>
+    </class>
+    
+    
+    <sql-query name="allDomains">
+    	<return-scalar column="domain" type="string"/>
+    	SELECT DISTINCT H.DOMAIN AS DOMAIN FROM HOST H
+    </sql-query>
+    <sql-query name="searchDomains">
+    	<return-scalar column="domain" type="string"/>
+    	SELECT DISTINCT H.DOMAIN AS DOMAIN FROM HOST H WHERE H.DOMAIN LIKE :domain
+    	<query-param name="domain" type="java.lang.String" />
+    	
+    </sql-query>
+    <sql-query name="searchHosts">
+    	<return-scalar column="host" type="string"/>
+    	SELECT DISTINCT HOST FROM HOST WHERE DOMAIN LIKE :domain AND HOST LIKE :host
+    	<query-param name="domain" type="java.lang.String" />
+    	<query-param name="host" type="java.lang.String" />    	
+    </sql-query>
+    
+    <query name="hostsByDomain">from host where domain = :domain
+    	<query-param name="domain" type="java.lang.String"/>
+    </query>
+    <query name="upHostsByDomain">from host where domain = :domain and connected is not null
+    	<query-param name="domain" type="java.lang.String"/>
+    </query>
+    
+    <query read-only="true"   name="findOnlineHosts">from host where connected is not null</query>
+    
+    
+</hibernate-mapping>
