@@ -26,7 +26,6 @@ package org.helios.jboss7.metrics;
 
 import java.lang.management.ManagementFactory;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.helios.jboss7.hibernate.domain.Agent;
@@ -35,10 +34,12 @@ import org.helios.jboss7.hibernate.domain.Metric;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 /**
  * <p>Title: MetricProcessor</p>
@@ -48,7 +49,7 @@ import com.google.common.cache.CacheLoader;
  * <p><code>org.helios.jboss7.metrics.MetricProcessor</code></p>
  */
 
-public class MetricProcessor implements InitializingBean {
+public class MetricProcessor implements InitializingBean, IMetricProcessor {
 	/** the hibernate session factory */
 	@Autowired(required=true)
 	protected SessionFactory sessionFactory = null;
@@ -59,11 +60,11 @@ public class MetricProcessor implements InitializingBean {
 	/** Instance logger */
 	protected final Logger log = Logger.getLogger(getClass());
 	/** Metric host cache */
-	protected Cache<String, Host> hostCache;
+	protected LoadingCache<String, Host> hostCache;
 	/** Metric agent cache */
-	protected Cache<String, Agent> agentCache;
+	protected LoadingCache<String, Agent> agentCache;
 	/** Metric cache */
-	protected Cache<String, Metric> metricCache;
+	protected LoadingCache<String, Metric> metricCache;
 	
 	/** The core count for this JVM */
 	public static final int CORES = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
@@ -71,6 +72,28 @@ public class MetricProcessor implements InitializingBean {
 	/** The in-state metric */
 	private static final ThreadLocal<InputMetric> currentMetric = new ThreadLocal<InputMetric>(); 
 	
+	/**
+	 * {@inheritDoc}
+	 * @see org.helios.jboss7.metrics.IMetricProcessor#process(java.lang.CharSequence)
+	 */
+	@Override
+	@Transactional(readOnly=true, rollbackFor=Throwable.class)
+	public void process(CharSequence metricInstance) {
+		if(metricInstance==null) throw new IllegalArgumentException("The passed metric instance was null");
+		try {
+			InputMetric metric = new InputMetric(metricInstance);
+			log.info("Processing InputMetric [" + metric.toString() + "]");
+			currentMetric.set(metric);
+			log.info("Processing Host:" + hostCache.getIfPresent(metric.host));
+			log.info("Processing Agent:" + agentCache.getIfPresent(metric.getAgentKey()));
+		} catch (Exception ex) {
+			String msg = "Failed to process metric instance [" + metricInstance + "]";
+			log.error(msg, ex);
+			throw new RuntimeException(msg, ex);
+		} finally {
+			currentMetric.remove();
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
@@ -102,14 +125,14 @@ public class MetricProcessor implements InitializingBean {
 				.build(new CacheLoader<String, Agent>(){
 					@Override
 					public Agent load(String key) throws Exception {
-						Agent agent = metricLoader.load(key, Host.class);
-						if(host==null) {
+						Agent agent = metricLoader.loadAgent(currentMetric.get().agent, currentMetric.get().hostId);
+						if(agent==null) {
 							Date now = new Date();
-							String[] nameDomain = Host.splitHostName(key);							
-							host = new Host(nameDomain[0], nameDomain[1], now, now, 1);
-							host = metricLoader.save(host);
+							String[] nameDomain = Host.splitHostName(key);
+							agent = new Agent(hostCache.getIfPresent(currentMetric.get().host), currentMetric.get().agent, now, now, (short)currentMetric.get().fragments.length);
+							agent = metricLoader.save(agent);
 						}						
-						return host;
+						return agent;
 					}					
 				});
 		

@@ -21,5 +21,7 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 		<property name="transactionSynchronizationRegistryName" value="java:jboss/TransactionSynchronizationRegistry"/>
 	</bean>
 	
+	<alias name="txManager" alias="transactionManager"/>
+	
 
 </beans>
