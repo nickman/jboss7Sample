@@ -70,7 +70,7 @@ public class InputMetric {
 	/** The split metric name fragments */
 	public final String[] fragments;
 	/** The metric type code */
-	public final int type;
+	public final short type;
 	/** The metric value */
 	public final long value;
 	
@@ -108,9 +108,9 @@ public class InputMetric {
 		host = matcher.group(GROUP_HOST);
 		agent = matcher.group(GROUP_AGENT);
 		namespace = matcher.group(GROUP_NAMESPACE);
-		type = Integer.parseInt(matcher.group(GROUP_TYPE));
+		type = Short.parseShort(matcher.group(GROUP_TYPE));
 		value = Long.parseLong(matcher.group(GROUP_VALUE));
-		fragments = NAMESPACE_SPLITTER.split(namespace);
+		fragments = NAMESPACE_SPLITTER.split(namespace.substring(1));
 		name = fragments[fragments.length-1];
 	}
 	

@@ -38,14 +38,19 @@
     </dependency>
     -->
     
-        
+      <dependency>
+		    <groupId>org.helios.jboss7</groupId>
+		    <artifactId>beans</artifactId>
+		    <version>${project.version}</version>
+      </dependency>
     
-    
+	
     <dependency>
 	    <groupId>org.helios.jboss7</groupId>
 	  	<artifactId>services</artifactId>
 	  	<version>${project.version}</version>
     </dependency>
+    
     
 	<dependency>
 	  <groupId>org.jvnet.opendmk</groupId>
@@ -225,14 +230,16 @@
                 <version>${version.ear.plugin}</version>
                 <dependencies>
                 	
+                	<!-- 
 				    <dependency>
 					    <groupId>org.helios.jboss7</groupId>
 					  	<artifactId>services</artifactId>
-					  	<version>${project.version}</version>
-					  	
+					  	<version>${project.version}</version>					  	
 				    </dependency>
+				    -->
 				    
                 </dependencies>
+                
                 <configuration>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>

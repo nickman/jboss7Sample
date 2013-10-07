@@ -20,7 +20,7 @@
         <property name="dataSource" ref="primaryDataSource" />
         <property name="useTransactionAwareDataSource" value="true" />
         <property name="configLocation">
-            <value>META-INF/hibernate/hibernate.cfg.xml</value>
+            <value>classpath:hibernate/hibernate.cfg.xml</value>
         </property>
         <property name="hibernateProperties">
             <props>

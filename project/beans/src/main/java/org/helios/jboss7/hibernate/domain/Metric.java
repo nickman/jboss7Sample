@@ -55,6 +55,8 @@ public class Metric implements java.io.Serializable, DomainObject {
 		this.firstSeen = firstSeen;
 		this.state = state;
 	}
+	
+	
 
 	public Metric(TraceType traceType, Agent agent, String namespace, String[] narr, 
 			int level, String name, Date firstSeen, byte state, Date lastSeen, Set<MetricValue> metricvalues) {

@@ -13,6 +13,7 @@
   <modules>    
     <module>ear</module>
     <module>services</module>
+    <module>beans</module>
     <module>web</module>
     <module>test</module>
   </modules>

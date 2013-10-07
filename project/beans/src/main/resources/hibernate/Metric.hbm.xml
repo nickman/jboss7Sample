@@ -3,19 +3,19 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping  >
-    <class name="org.helios.jboss7.hibernate.domain.Metric" entity-name="metric" table="METRIC" schema="PUBLIC" catalog="DB"  >
+    <class name="org.helios.jboss7.hibernate.domain.Metric" table="METRIC" schema="PUBLIC" catalog="DB"  >
         <id name="metricId" type="java.lang.Long">
             <column name="METRIC_ID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="traceType" class="org.helios.jboss7.hibernate.domain.TraceType" entity-name="type" fetch="join" lazy="false">
+        <many-to-one name="traceType" class="org.helios.jboss7.hibernate.domain.TraceType" fetch="join" lazy="false">
             <column name="TYPE_ID" not-null="true">
                 <comment>The metric type of the metric</comment>
             </column>
         </many-to-one>
         
          
-        <many-to-one name="agent" class="org.helios.jboss7.hibernate.domain.Agent" entity-name="agent" fetch="join" lazy="false"   >
+        <many-to-one name="agent" class="org.helios.jboss7.hibernate.domain.Agent" fetch="join" lazy="false"   >
             <column name="AGENT_ID" not-null="true" >
                 <comment>The agent identifier for this metric</comment>
             </column>
@@ -28,7 +28,7 @@
             </column>
         </property>
         
-        <property name="narr" type="org.helios.jboss7.hibernate.mapping.StringArrayDataType" not-null="true">
+        <property name="narr" type="org.helios.jboss7.hibernate.domain.StringArrayDataType" not-null="true">
             <column name="NARR" >
                 <comment>The namespace items array of the metric</comment>
             </column>
@@ -67,19 +67,23 @@
                     <comment>The unique id of the metric.</comment>
                 </column>
             </key>
-            <one-to-many class="org.helios.jboss7.hibernate.domain.MetricValue" entity-name="metricValue" />
+            <one-to-many class="org.helios.jboss7.hibernate.domain.MetricValue" />
         </set>
         
         
     </class>
-    <query name="metricById">from metric m where m.metricId = :metricId
+    <query name="metricById">from Metric m where m.metricId = :metricId
     	<query-param name="metricId" type="java.lang.Long"/>
     </query>    
-    
-    <query name="allMetricsForAgent">from metric m where m.agent.agentId = :agentId
+    <query name="metricByNamespaceAndAgent">from Metric m where m.namespace = :namespace and m.agent.agentId = :agentId
+    	<query-param name="namespace" type="java.lang.String"/>
     	<query-param name="agentId" type="java.lang.Integer"/>
     </query>    
-    <query name="findLevelMetricsForAgent">from metric m where m.level = :level and m.agent.agentId = :agentId
+    
+    <query name="allMetricsForAgent">from Metric m where m.agent.agentId = :agentId
+    	<query-param name="agentId" type="java.lang.Integer"/>
+    </query>    
+    <query name="findLevelMetricsForAgent">from Metric m where m.level = :level and m.agent.agentId = :agentId
     	<query-param name="level" type="java.lang.Integer"/>
     	<query-param name="agentId" type="java.lang.Integer"/>    	
     </query>
@@ -90,13 +94,16 @@
     	<query-param name="parent" type="java.lang.String"/>
     </sql-query>
     <!-- select distinct narr[1], m.level-a.min_level  from metric m, agent a  where a.agent_id = m.agent_id and a.agent_id = 1 and namespace like '/platform=APMRouter%' and narr[1] is not null  -->
+    <!-- 
     <sql-query name="findLevelMetricsForAgentWithParent">select {m.*} from metric m where m.agent_id = :agentId and m.level = :level and namespace like :parent
     	<query-param name="level" type="java.lang.Integer"/>
     	<query-param name="agentId" type="java.lang.Integer"/>   
     	<query-param name="parent" type="java.lang.String"/>
     	<return alias="m" entity-name="metric" ></return>
-    	<!--  select {m.*} from metric m where m.agent_id = :agentId and m.level = :level and m.narr[:level-1] = :parent -->
+    	
     </sql-query>
+    -->
+    <!--  select {m.*} from metric m where m.agent_id = :agentId and m.level = :level and m.narr[:level-1] = :parent -->
     
 </hibernate-mapping>
 	

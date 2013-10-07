@@ -40,10 +40,17 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 	    </property>
 	</bean>
 
+	<!-- 
+		Access the web console at  http://localhost:4081/  and log in using URL jdbc:h2:file:~/.jboss7/h2/db	
+	 -->
 	    <bean id="H2WebServer" class="org.h2.tools.Server"
 	        factory-method="createWebServer" init-method="start" destroy-method="stop">
 	        <constructor-arg value="-web,-webAllowOthers,-webPort,4081" />
 	    </bean>
+	    
+	 <!-- 
+	 	Access using remote JDBC with URL  jdbc:h2:tcp://localhost:4083/~/.jboss7/h2/db
+	  -->
 	    <bean id="H2TCPServer" class="org.h2.tools.Server"
 	        factory-method="createTcpServer" init-method="start" destroy-method="stop">
 	        <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,4083" />

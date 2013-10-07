@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
- <class catalog="DB" name="org.helios.jboss7.hibernate.domain.Agent"  entity-name="agent"
+ <class catalog="DB" name="org.helios.jboss7.hibernate.domain.Agent" 
   schema="PUBLIC" table="AGENT">
   <id name="agentId" type="java.lang.Integer">
    <column name="AGENT_ID"/>
    <generator class="identity"/>
   </id>
-  <many-to-one class="org.helios.jboss7.hibernate.domain.Host" entity-name="host"
-   fetch="join" insert="false" name="host" not-null="true" update="false" lazy="false" >
+  <many-to-one class="org.helios.jboss7.hibernate.domain.Host"  name="host"
+   fetch="join" insert="true" not-null="true" update="true" lazy="false" >
    <column name="HOST_ID" not-null="true">
-    <comment>The id of the host this agent is running om.</comment>
+    <comment>The id of the host this agent is running on.</comment>
    </column>
   </many-to-one>
   <property generated="never" lazy="false" name="name" type="string">
@@ -46,16 +46,15 @@
    </column>
   </property>
  </class>
- <query read-only="true"   name="agentForHost">from agent a where a.name = :agentName and a.host.hostId = :hostId
+ <query read-only="true"  name="agentForHost">from Agent as a where a.name = :agentName and a.host.hostId = :hostId
  	<query-param name="agentName" type="java.lang.String"/>
  	<query-param name="hostId" type="java.lang.Integer"/>
  </query>
  
- <query read-only="true"   name="agentsByHost">from agent a where a.host.hostId = :hostId
+ <query read-only="true" name="agentsByHost">from Agent as a where a.host.hostId = :hostId
  	<query-param name="hostId" type="java.lang.Integer"/>
  </query>
- <query read-only="true"   name="upAgentsByHost">from agent a where a.host.hostId = :hostId and connected is not null
+ <query read-only="true" name="upAgentsByHost">from Agent as a where a.host.hostId = :hostId and connected is not null
  	<query-param name="hostId" type="java.lang.Integer"/>
  </query>
- 
 </hibernate-mapping>

@@ -22,7 +22,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.jboss7.hibernate.mapping;
+package org.helios.jboss7.hibernate.domain;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;

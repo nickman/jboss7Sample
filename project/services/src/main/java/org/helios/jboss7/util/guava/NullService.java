@@ -24,9 +24,16 @@
  */
 package org.helios.jboss7.util.guava;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import javax.enterprise.inject.Produces;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.Service;
@@ -40,12 +47,17 @@ import com.google.common.util.concurrent.Service;
  */
 
 public class NullService implements Service {
+	protected State state = State.NEW;
+	
+	@Produces Set<Service> dummyServices() {
+	    return Collections.unmodifiableSet(new HashSet<Service>());
+	}
 
 	/**
 	 * Creates a new NullService
 	 */
 	public NullService() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -54,8 +66,43 @@ public class NullService implements Service {
 	 */
 	@Override
 	public ListenableFuture<State> start() {
-		// TODO Auto-generated method stub
-		return null;
+		state = State.RUNNING;
+		return new ListenableFuture<State>(){
+
+			@Override
+			public boolean cancel(boolean mayInterruptIfRunning) {
+				return false;
+			}
+
+			@Override
+			public boolean isCancelled() {
+				return false;
+			}
+
+			@Override
+			public boolean isDone() {
+				return true;
+			}
+
+			@Override
+			public State get() throws InterruptedException, ExecutionException {
+				return state;
+			}
+
+			@Override
+			public State get(long timeout, TimeUnit unit)
+					throws InterruptedException, ExecutionException,
+					TimeoutException {
+				// TODO Auto-generated method stub
+				return state;
+			}
+
+			@Override
+			public void addListener(Runnable listener, Executor executor) {
+				
+			}
+			
+		};
 	}
 
 	/**
@@ -64,8 +111,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public State startAndWait() {
-		// TODO Auto-generated method stub
-		return null;
+		return State.RUNNING;
 	}
 
 	/**
@@ -74,8 +120,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public Service startAsync() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	/**
@@ -84,8 +129,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public boolean isRunning() {
-		// TODO Auto-generated method stub
-		return false;
+		return state==State.RUNNING;
 	}
 
 	/**
@@ -94,8 +138,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public State state() {
-		// TODO Auto-generated method stub
-		return null;
+		return state;
 	}
 
 	/**
@@ -104,8 +147,43 @@ public class NullService implements Service {
 	 */
 	@Override
 	public ListenableFuture<State> stop() {
-		// TODO Auto-generated method stub
-		return null;
+		state = State.TERMINATED;
+		return new ListenableFuture<State>(){
+
+			@Override
+			public boolean cancel(boolean mayInterruptIfRunning) {
+				return false;
+			}
+
+			@Override
+			public boolean isCancelled() {
+				return false;
+			}
+
+			@Override
+			public boolean isDone() {
+				return true;
+			}
+
+			@Override
+			public State get() throws InterruptedException, ExecutionException {
+				return state;
+			}
+
+			@Override
+			public State get(long timeout, TimeUnit unit)
+					throws InterruptedException, ExecutionException,
+					TimeoutException {
+				// TODO Auto-generated method stub
+				return state;
+			}
+
+			@Override
+			public void addListener(Runnable listener, Executor executor) {
+				
+			}
+			
+		};
 	}
 
 	/**
@@ -114,8 +192,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public State stopAndWait() {
-		// TODO Auto-generated method stub
-		return null;
+		return State.TERMINATED;
 	}
 
 	/**
@@ -124,8 +201,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public Service stopAsync() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	/**
@@ -134,7 +210,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public void awaitRunning() {
-		// TODO Auto-generated method stub
+
 
 	}
 
@@ -145,7 +221,7 @@ public class NullService implements Service {
 	@Override
 	public void awaitRunning(long timeout, TimeUnit unit)
 			throws TimeoutException {
-		// TODO Auto-generated method stub
+
 
 	}
 
@@ -155,7 +231,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public void awaitTerminated() {
-		// TODO Auto-generated method stub
+
 
 	}
 
@@ -166,7 +242,6 @@ public class NullService implements Service {
 	@Override
 	public void awaitTerminated(long timeout, TimeUnit unit)
 			throws TimeoutException {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -176,8 +251,7 @@ public class NullService implements Service {
 	 */
 	@Override
 	public Throwable failureCause() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Throwable();
 	}
 
 	/**
@@ -186,7 +260,6 @@ public class NullService implements Service {
 	 */
 	@Override
 	public void addListener(Listener listener, Executor executor) {
-		// TODO Auto-generated method stub
 
 	}
 

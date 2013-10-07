@@ -25,18 +25,21 @@
 package org.helios.jboss7.metrics;
 
 import java.lang.management.ManagementFactory;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.helios.jboss7.hibernate.domain.Agent;
 import org.helios.jboss7.hibernate.domain.Host;
 import org.helios.jboss7.hibernate.domain.Metric;
+import org.helios.jboss7.hibernate.domain.TraceType;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -66,6 +69,9 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 	/** Metric cache */
 	protected LoadingCache<String, Metric> metricCache;
 	
+	/** TraceType cache */
+	protected final Map<Short, TraceType> traceTypeCache = new HashMap<Short, TraceType>(); 
+	
 	/** The core count for this JVM */
 	public static final int CORES = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
 	
@@ -84,8 +90,9 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 			InputMetric metric = new InputMetric(metricInstance);
 			log.info("Processing InputMetric [" + metric.toString() + "]");
 			currentMetric.set(metric);
-			log.info("Processing Host:" + hostCache.getIfPresent(metric.host));
-			log.info("Processing Agent:" + agentCache.getIfPresent(metric.getAgentKey()));
+			log.info("Processing Host:" + hostCache.get(metric.host));
+			log.info("Processing Agent:" + agentCache.get(metric.getAgentKey()));
+			log.info("Processing Metric:" + metricCache.get(metric.getMetricKey()));
 		} catch (Exception ex) {
 			String msg = "Failed to process metric instance [" + metricInstance + "]";
 			log.error(msg, ex);
@@ -101,6 +108,9 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		log.info("Configuring MetricProcessor Caches.....");
+		for(TraceType t: metricLoader.getTraceTypes()) {
+			traceTypeCache.put(t.getTypeId(), t);
+		}
 		hostCache = CacheBuilder.newBuilder()
 				.concurrencyLevel(CORES * 2)
 				.recordStats()
@@ -108,13 +118,16 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 				.build(new CacheLoader<String, Host>(){
 					@Override
 					public Host load(String key) throws Exception {
-						Host host = metricLoader.load(key, Host.class);
+						String[] nameDomain = Host.splitHostName(key);
+						Host host = metricLoader.loadHost(nameDomain[0], nameDomain[1]);
 						if(host==null) {
 							Date now = new Date();
-							String[] nameDomain = Host.splitHostName(key);							
+														
 							host = new Host(nameDomain[0], nameDomain[1], now, now, 1);
 							host = metricLoader.save(host);
+							log.info("Saved Host:\n\t" + host);							
 						}						
+						currentMetric.get().hostId = host.getHostId();
 						return host;
 					}					
 				});
@@ -129,12 +142,41 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 						if(agent==null) {
 							Date now = new Date();
 							String[] nameDomain = Host.splitHostName(key);
+							
 							agent = new Agent(hostCache.getIfPresent(currentMetric.get().host), currentMetric.get().agent, now, now, (short)currentMetric.get().fragments.length);
+							agent.setHost(hostCache.get(nameDomain[0] + ":" + nameDomain[1]));
 							agent = metricLoader.save(agent);
+							log.info("Saved Agent:\n\t" + agent);							
 						}						
+						currentMetric.get().agentId = agent.getAgentId();
 						return agent;
 					}					
 				});
+		metricCache = CacheBuilder.newBuilder()
+				.concurrencyLevel(CORES * 2)
+				.recordStats()
+				.softValues()
+				.build(new CacheLoader<String, Metric>(){
+					@Override
+					public Metric load(String key) throws Exception {
+						Metric metric = metricLoader.loadMetric(currentMetric.get().namespace, currentMetric.get().agentId);
+						if(metric==null) {
+							Date now = new Date();
+							InputMetric im = currentMetric.get();
+							Agent agent = agentCache.get(im.getAgentKey());
+							metric = new Metric(traceTypeCache.get(im.type), agentCache.get(im.getAgentKey()),
+									im.namespace, im.fragments, im.fragments.length, im.name, now, (byte)1, now, null
+							);
+							metric.setAgent(agent);
+							metric = metricLoader.save(metric);
+							log.info("Saved Metric:\n\t" + metric);
+							im.metricId = metric.getMetricId();
+
+						}						
+						return metric;
+					}					
+				});
+ 
 		
 		log.info("MetricProcessor Initialized");
 	}

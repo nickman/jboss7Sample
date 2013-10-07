@@ -31,7 +31,7 @@ public class Agent implements java.io.Serializable, DomainObject {
 	@SerializedName("uri")
 	private String uri;
 	@SerializedName("minl")
-	private int minLevel;	
+	private short minLevel;	
 
 	public Agent() {
 	}
@@ -114,7 +114,7 @@ public class Agent implements java.io.Serializable, DomainObject {
 		this.uri = uri;
 	}
 
-	public int getMinLevel() {
+	public short getMinLevel() {
 		return this.minLevel;
 	}
 

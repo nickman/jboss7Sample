@@ -3,6 +3,8 @@ package org.helios.jboss7.hibernate.domain;
 // Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.google.gson.annotations.Expose;
@@ -31,6 +33,8 @@ public class Host implements java.io.Serializable, DomainObject {
 	private Date lastConnected;
 	@Expose(serialize=false)
 	private int agentsConnected;
+	@SerializedName("hostAgents")
+	private Set<Agent> hostAgents = new HashSet<Agent>();
 	
 	@SerializedName("conn")
 	private Date connected;
@@ -56,7 +60,7 @@ public class Host implements java.io.Serializable, DomainObject {
 	}
 
 	public Host(String name, String domain, String ip, String fqn, Date firstConnected,
-			Date lastConnected, int agentsConnected, Date connected) {
+			Date lastConnected, int agentsConnected, Date connected, Set<Agent> hostAgents) {
 		this.name = name;
 		this.domain = domain;
 		this.ip = ip;
@@ -65,6 +69,7 @@ public class Host implements java.io.Serializable, DomainObject {
 		this.lastConnected = lastConnected;
 		this.agentsConnected = agentsConnected;
 		this.connected = connected;		
+		this.hostAgents = hostAgents;
 	}
 	
 
@@ -178,6 +183,15 @@ public class Host implements java.io.Serializable, DomainObject {
 	public void setAgentsConnected(int agentsConnected) {
 		this.agentsConnected = agentsConnected;
 	}
+	
+	public Set<Agent> getHostAgents() {
+		return this.hostAgents;
+	}
+
+	public void setHostAgents(Set<Agent> hostAgents) {
+		this.hostAgents = hostAgents;
+	}
+	
 
 	/** The default domain name */
 	static final String DEFAULT_DOMAIN = "DefaultDomain";

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
-    <class name="org.helios.jboss7.hibernate.domain.Host" entity-name="host" table="HOST" schema="PUBLIC" catalog="DB">
+    <class name="org.helios.jboss7.hibernate.domain.Host"  table="HOST" schema="PUBLIC" catalog="DB">
         <id name="hostId" type="java.lang.Integer">
             <column name="HOST_ID" />
             <generator class="identity" />
@@ -51,6 +51,15 @@
                 <comment>The time an agent from this host connected or null if not connected.</comment>
             </column>
         </property>
+      <set name="hostAgents" table="AGENT" inverse="true" lazy="false" fetch="join">
+          <key>
+              <column name="HOST_ID" not-null="true">
+                  <comment>The id of the host this agent is running om.</comment>
+              </column>
+          </key>
+          <one-to-many class="org.helios.jboss7.hibernate.domain.Agent" />
+      </set>
+        
     </class>
     
     
@@ -60,25 +69,30 @@
     </sql-query>
     <sql-query name="searchDomains">
     	<return-scalar column="domain" type="string"/>
-    	SELECT DISTINCT H.DOMAIN AS DOMAIN FROM HOST H WHERE H.DOMAIN LIKE :domain
-    	<query-param name="domain" type="java.lang.String" />
+    	SELECT DISTINCT H.DOMAIN AS DOMAIN FROM HOST H WHERE H.DOMAIN LIKE :domainName
+    	<query-param name="domainName" type="java.lang.String" />
     	
     </sql-query>
     <sql-query name="searchHosts">
     	<return-scalar column="host" type="string"/>
-    	SELECT DISTINCT HOST FROM HOST WHERE DOMAIN LIKE :domain AND HOST LIKE :host
+    	SELECT DISTINCT HOST FROM HOST WHERE DOMAIN LIKE :domain AND HOST LIKE :hostName
     	<query-param name="domain" type="java.lang.String" />
-    	<query-param name="host" type="java.lang.String" />    	
+    	<query-param name="hostName" type="java.lang.String" />    	
     </sql-query>
     
-    <query name="hostsByDomain">from host where domain = :domain
-    	<query-param name="domain" type="java.lang.String"/>
+    <query name="hostsByDomain">from Host as host where domain = :domain
+    	<query-param name="domain" type="java.lang.String"/>    	
     </query>
-    <query name="upHostsByDomain">from host where domain = :domain and connected is not null
+    <query name="upHostsByDomain"  >from Host as host where domain = :domain and connected is not null
     	<query-param name="domain" type="java.lang.String"/>
     </query>
     
-    <query read-only="true"   name="findOnlineHosts">from host where connected is not null</query>
+    <query read-only="true"   name="findOnlineHosts">from Host as host where connected is not null</query>
+
+    <query name="hostByNameAndDomain">from Host as host where name = :name and domain = :domain
+    	<query-param name="name" type="java.lang.String"/>
+    	<query-param name="domain" type="java.lang.String"/>
+    </query>
     
     
 </hibernate-mapping>

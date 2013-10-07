@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 6, 2013 12:48:38 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="org.helios.jboss7.hibernate.domain.MetricValue" entity-name="metricValue" table="METRICVALUE" schema="PUBLIC" catalog="DB">
+    <class name="org.helios.jboss7.hibernate.domain.MetricValue" table="METRICVALUE" schema="PUBLIC" catalog="DB">
         <composite-id name="id"  class="org.helios.jboss7.hibernate.domain.MetricValueId">
             <key-property name="metricId" type="long">
                 <column name="METRIC_ID" />
@@ -12,7 +12,7 @@
                 <column name="VALUE_ID" />
             </key-property>
         </composite-id>
-        <many-to-one name="metric" class="org.helios.jboss7.hibernate.domain.Metric" entity-name="metric" update="false" insert="false" fetch="select">
+        <many-to-one name="metric" class="org.helios.jboss7.hibernate.domain.Metric"  update="false" insert="false" fetch="select">
             <column name="METRIC_ID" not-null="true">
                 <comment>The unique id of the metric.</comment>
             </column>
