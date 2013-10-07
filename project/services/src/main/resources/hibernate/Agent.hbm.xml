@@ -3,13 +3,13 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
- <class catalog="DB" name="org.helios.apmrouter.catalog.domain.Agent"  entity-name="agent"
+ <class catalog="DB" name="org.helios.jboss7.hibernate.domain.Agent"  entity-name="agent"
   schema="PUBLIC" table="AGENT">
   <id name="agentId" type="java.lang.Integer">
    <column name="AGENT_ID"/>
    <generator class="identity"/>
   </id>
-  <many-to-one class="org.helios.apmrouter.catalog.domain.Host" entity-name="host"
+  <many-to-one class="org.helios.jboss7.hibernate.domain.Host" entity-name="host"
    fetch="join" insert="false" name="host" not-null="true" update="false" lazy="false" >
    <column name="HOST_ID" not-null="true">
     <comment>The id of the host this agent is running om.</comment>
@@ -46,6 +46,11 @@
    </column>
   </property>
  </class>
+ <query read-only="true"   name="agentForHost">from agent a where a.name = :agentName and a.host.hostId = :hostId
+ 	<query-param name="agentName" type="java.lang.String"/>
+ 	<query-param name="hostId" type="java.lang.Integer"/>
+ </query>
+ 
  <query read-only="true"   name="agentsByHost">from agent a where a.host.hostId = :hostId
  	<query-param name="hostId" type="java.lang.Integer"/>
  </query>

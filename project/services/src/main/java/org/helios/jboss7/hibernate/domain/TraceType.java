@@ -1,4 +1,4 @@
-package org.helios.apmrouter.catalog.domain;
+package org.helios.jboss7.hibernate.domain;
 
 // Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0
 

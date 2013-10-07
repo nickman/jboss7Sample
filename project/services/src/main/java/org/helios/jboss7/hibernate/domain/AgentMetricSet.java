@@ -22,7 +22,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.catalog.domain;
+package org.helios.jboss7.hibernate.domain;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -46,7 +46,7 @@ import com.google.gson.annotations.Expose;
  * <p>Description: An optimization to retrieve a more structured JSON representation of the metrics for a specified agent</p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.catalog.domain.AgentMetricSet</code></p>
+ * <p><code>org.helios.jboss7.hibernate.domain.AgentMetricSet</code></p>
  */
 
 public class AgentMetricSet {
@@ -138,7 +138,7 @@ public class AgentMetricSet {
 	 * <p>Description: Represents a notional folder within which a metric exists</p> 
 	 * <p>Company: Helios Development Group LLC</p>
 	 * @author Whitehead (nwhitehead AT heliosdev DOT org)
-	 * <p><code>org.helios.apmrouter.catalog.domain.AgentMetricSet.Folder</code></p>
+	 * <p><code>org.helios.jboss7.hibernate.domain.AgentMetricSet.Folder</code></p>
 	 */
 	public static class Folder {
 		/** The host Id */

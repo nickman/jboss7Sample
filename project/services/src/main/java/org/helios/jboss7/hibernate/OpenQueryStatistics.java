@@ -37,22 +37,27 @@ import org.hibernate.stat.QueryStatistics;
 public class OpenQueryStatistics implements OpenQueryStatisticsMBean {
 	/** The delegate stats */
 	protected final QueryStatistics stats;
+	/** The stat name */
+	protected final String name;
+
 
 	/**
 	 * Creates a new OpenQueryStatistics
 	 * @param stats the delegate stats
+	 * @param name The stat name
 	 */
-	public OpenQueryStatistics(QueryStatistics stats) {
+	public OpenQueryStatistics(QueryStatistics stats, String name) {
 		this.stats = stats;
+		this.name = name;
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getCategoryName()
+	 * @see org.helios.jboss7.hibernate.OpenQueryStatisticsMBean#getName()
 	 */
 	@Override
-	public String getCategoryName() {
-		return stats.getCategoryName();
+	public String getName() {
+		return name;
 	}
 
 	/**

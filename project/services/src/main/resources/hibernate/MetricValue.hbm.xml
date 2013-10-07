@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 6, 2013 12:48:38 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.helios.jboss7.hibernate.domain.MetricValue" entity-name="metricValue" table="METRICVALUE" schema="PUBLIC" catalog="DB">
+        <composite-id name="id"  class="org.helios.jboss7.hibernate.domain.MetricValueId">
+            <key-property name="metricId" type="long">
+                <column name="METRIC_ID" />
+            </key-property>
+            <key-property name="valueId" type="int">
+                <column name="VALUE_ID" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="metric" class="org.helios.jboss7.hibernate.domain.Metric" entity-name="metric" update="false" insert="false" fetch="select">
+            <column name="METRIC_ID" not-null="true">
+                <comment>The unique id of the metric.</comment>
+            </column>
+        </many-to-one>
+        <property name="valueTimestamp" type="timestamp">
+            <column name="VALUE_TS" length="23" not-null="true">
+                <comment>The metric value timestamp</comment>
+            </column>
+        </property>
+        <property name="value" type="long">
+            <column name="VALUE" not-null="true">
+                <comment>The metric instance value</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

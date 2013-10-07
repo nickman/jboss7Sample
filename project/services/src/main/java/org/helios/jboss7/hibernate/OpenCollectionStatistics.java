@@ -37,13 +37,17 @@ import org.hibernate.stat.CollectionStatistics;
 public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  {
 	/** the delegate stats */
 	protected final CollectionStatistics stats;
+	/** The stat name */
+	protected final String name;
 
 	/**
 	 * Creates a new OpenCollectionStatistics
 	 * @param stats the delegate stats
+	 * @param name The stat name
 	 */
-	public OpenCollectionStatistics(CollectionStatistics stats) {
+	public OpenCollectionStatistics(CollectionStatistics stats, String name) {
 		this.stats = stats;
+		this.name = name;
 	}
 
 	/**
@@ -66,11 +70,11 @@ public class OpenCollectionStatistics implements OpenCollectionStatisticsMBean  
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getCategoryName()
+	 * @see org.helios.jboss7.hibernate.OpenCollectionStatisticsMBean#getName()
 	 */
 	@Override
-	public String getCategoryName() {
-		return stats.getCategoryName();
+	public String getName() {
+		return name;
 	}
 
 	/**

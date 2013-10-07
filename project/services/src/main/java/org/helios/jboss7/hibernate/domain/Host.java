@@ -1,8 +1,9 @@
-package org.helios.apmrouter.catalog.domain;
+package org.helios.jboss7.hibernate.domain;
 
 // Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -38,6 +39,14 @@ public class Host implements java.io.Serializable, DomainObject {
 	public Host() {
 	}
 
+	/**
+	 * Creates a new Host
+	 * @param name
+	 * @param domain
+	 * @param firstConnected
+	 * @param lastConnected
+	 * @param agentsConnected
+	 */
 	public Host(String name, String domain, Date firstConnected, Date lastConnected, int agentsConnected) {
 		this.name = name;
 		this.domain = domain;
@@ -170,5 +179,39 @@ public class Host implements java.io.Serializable, DomainObject {
 		this.agentsConnected = agentsConnected;
 	}
 
+	/** The default domain name */
+	static final String DEFAULT_DOMAIN = "DefaultDomain";
+	/** The host name used when the name is unknown */
+	static final String UNKNOWN = "Unknown";
+	/** The default host/domain pair */
+	static final String[] DEFAULT_PAIR = {UNKNOWN, DEFAULT_DOMAIN};
+	/** The domain splitter */
+	static final Pattern DOMAIN_SPLITTER = Pattern.compile("\\.");
+	/** White space cleaner */
+	static final Pattern WHITE_SPACE = Pattern.compile("\\s+");
+
+	/**
+	 * Accepts an optionally fully qualified host name, and returns an array with the simple host name
+	 * and the domain name. If the passed name has no domain, the default domain "Default" will be used.
+	 * @param name The name to parse
+	 * @return A string array with the simple host name and the domain
+	 */
+	public static String[] splitHostName(String name) {
+		if(name==null || name.trim().isEmpty()) return DEFAULT_PAIR;
+		String[] frags = DOMAIN_SPLITTER.split(WHITE_SPACE.matcher(name.trim()).replaceAll(""));
+		String[] pair = new String[2];
+		pair[0] = frags[0];
+		if(frags.length==1) {
+			pair[1] = DEFAULT_DOMAIN;
+		} else {
+			StringBuilder b = new StringBuilder();
+			for(int i = 1; i < frags.length; i++) {
+				b.append(frags[i]).append(".");
+			}
+			b.deleteCharAt(b.length()-1);
+			pair[1] = b.toString();
+		}
+		return pair;
+	}
 
 }

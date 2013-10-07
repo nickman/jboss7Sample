@@ -74,7 +74,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	@ManagedOperation(description="Retrieves the Hibernate entity statistics for the passed entity name")
 	@ManagedOperationParameters({@ManagedOperationParameter(name="entityName", description="The name of the Hibernate entity to acquire statistics for")})
 	public OpenEntityStatisticsMBean getEntityStatistics(String entityName) {
-		return new OpenEntityStatistics(delegate.getEntityStatistics(entityName));
+		return new OpenEntityStatistics(delegate.getEntityStatistics(entityName), entityName);
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	@ManagedOperation(description="Retrieves the Hibernate collection statistics for the passed collection role")
 	@ManagedOperationParameters({@ManagedOperationParameter(name="role", description="The name of the Hibernate role to acquire collection statistics for")})
 	public OpenCollectionStatisticsMBean getCollectionStatistics(String role) {
-		return new OpenCollectionStatistics(delegate.getCollectionStatistics(role));
+		return new OpenCollectionStatistics(delegate.getCollectionStatistics(role), role);
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class HibernateStatsService implements HibernateStatsServiceMXBean {
 	@ManagedOperation(description="Retrieves the Hibernate query statistics for the passed sql")
 	@ManagedOperationParameters({@ManagedOperationParameter(name="hql", description="The hql to retrieve the Hibernate query statistics for")})
 	public OpenQueryStatisticsMBean getQueryStatistics(String hql) {
-		return new OpenQueryStatistics(delegate.getQueryStatistics(hql));
+		return new OpenQueryStatistics(delegate.getQueryStatistics(hql), hql);
 	}
 	
 	/**

@@ -22,14 +22,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
  *
  */
-package org.helios.apmrouter.catalog.domain;
+package org.helios.jboss7.hibernate.domain;
 
 /**
  * <p>Title: DomainObject</p>
  * <p>Description: Marker interface for domain objects</p> 
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
- * <p><code>org.helios.apmrouter.catalog.domain.DomainObject</code></p>
+ * <p><code>org.helios.jboss7.hibernate.domain.DomainObject</code></p>
  */
 
 public interface DomainObject {

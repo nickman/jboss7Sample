@@ -48,9 +48,8 @@ public interface OpenCollectionStatisticsMBean {
 
 	/**
 	 * @return
-	 * @see org.hibernate.stat.CategorizedStatistics#getCategoryName()
 	 */
-	public String getCategoryName();
+	public String getName();
 
 	/**
 	 * @return

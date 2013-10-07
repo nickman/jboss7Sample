@@ -11,5 +11,6 @@
         <mapping resource="hibernate/Agent.hbm.xml" />
         <mapping resource="hibernate/Host.hbm.xml" />
         <mapping resource="hibernate/Metric.hbm.xml" />
+        <mapping resource="hibernate/MetricValue.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

@@ -1,9 +1,11 @@
-package org.helios.apmrouter.catalog.domain;
+package org.helios.jboss7.hibernate.domain;
 
 // Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -39,6 +41,9 @@ public class Metric implements java.io.Serializable, DomainObject {
 	
 	@Expose(serialize=false)
 	private Date lastSeen;
+	
+	@SerializedName("values")
+	private Set<MetricValue> metricvalues = new HashSet<MetricValue>(0);
 
 	public Metric() {
 	}
@@ -52,7 +57,7 @@ public class Metric implements java.io.Serializable, DomainObject {
 	}
 
 	public Metric(TraceType traceType, Agent agent, String namespace, String[] narr, 
-			int level, String name, Date firstSeen, byte state, Date lastSeen) {
+			int level, String name, Date firstSeen, byte state, Date lastSeen, Set<MetricValue> metricvalues) {
 		this.traceType = traceType;
 		this.agent = agent;
 		this.namespace = namespace;
@@ -62,6 +67,9 @@ public class Metric implements java.io.Serializable, DomainObject {
 		this.firstSeen = firstSeen;
 		this.state = state;;
 		this.lastSeen = lastSeen;
+		if(metricvalues!=null) {
+			this.metricvalues.addAll(metricvalues);
+		}
 	}
 	
 	
@@ -182,6 +190,15 @@ public class Metric implements java.io.Serializable, DomainObject {
 	public void setNarr(String[] narr) {
 		this.narr = narr;
 	}
+	
+	public Set<MetricValue> getMetricValues() {
+		return this.metricvalues;
+	}
+
+	public void setMetricValues(Set<MetricValue> metricvalues) {
+		this.metricvalues = metricvalues;
+	}
+	
 
 	
 	

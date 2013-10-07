@@ -3,19 +3,19 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping  >
-    <class name="org.helios.apmrouter.catalog.domain.Metric" entity-name="metric" table="METRIC" schema="PUBLIC" catalog="DB"  >
+    <class name="org.helios.jboss7.hibernate.domain.Metric" entity-name="metric" table="METRIC" schema="PUBLIC" catalog="DB"  >
         <id name="metricId" type="java.lang.Long">
             <column name="METRIC_ID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="traceType" class="org.helios.apmrouter.catalog.domain.TraceType" entity-name="type" fetch="join" lazy="false">
+        <many-to-one name="traceType" class="org.helios.jboss7.hibernate.domain.TraceType" entity-name="type" fetch="join" lazy="false">
             <column name="TYPE_ID" not-null="true">
                 <comment>The metric type of the metric</comment>
             </column>
         </many-to-one>
         
          
-        <many-to-one name="agent" class="org.helios.apmrouter.catalog.domain.Agent" entity-name="agent" fetch="join" lazy="false"   >
+        <many-to-one name="agent" class="org.helios.jboss7.hibernate.domain.Agent" entity-name="agent" fetch="join" lazy="false"   >
             <column name="AGENT_ID" not-null="true" >
                 <comment>The agent identifier for this metric</comment>
             </column>
@@ -60,6 +60,17 @@
                 <comment>The last time this metric was seen</comment>
             </column>
         </property>
+        
+        <set name="metricValues" table="METRICVALUE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="METRIC_ID" not-null="true">
+                    <comment>The unique id of the metric.</comment>
+                </column>
+            </key>
+            <one-to-many class="org.helios.jboss7.hibernate.domain.MetricValue" entity-name="metricValue" />
+        </set>
+        
+        
     </class>
     <query name="metricById">from metric m where m.metricId = :metricId
     	<query-param name="metricId" type="java.lang.Long"/>

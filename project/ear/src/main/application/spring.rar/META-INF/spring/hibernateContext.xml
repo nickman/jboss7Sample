@@ -33,12 +33,18 @@
         </property>
     </bean>
     
-    
+     
     <bean id="HibernateStatistics" class="org.helios.jboss7.hibernate.HibernateStatsService">
     	<constructor-arg ref="sessionFactory" />
     	<property name="statisticsEnabled" value="true"/>
     		
     </bean>
+    
+    <!-- 
+    <bean id="HibernateStatistics" class="org.hibernate.jmx.StatisticsService">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    -->
  
  
     <tx:annotation-driven />

@@ -38,13 +38,18 @@ import org.hibernate.stat.EntityStatistics;
 public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 	/** The delegate instance */
 	protected final EntityStatistics stats;
+	/** The stat name */
+	protected final String name;
+
 
 	/**
 	 * Creates a new OpenEntityStatistics
 	 * @param stats The delegate {@link EntityStatistics} instance 
+	 * @param name The stat name
 	 */
-	public OpenEntityStatistics(EntityStatistics stats) {
+	public OpenEntityStatistics(EntityStatistics stats, String name) {
 		this.stats = stats;
+		this.name = name;
 	}
 
 	/**
@@ -67,11 +72,11 @@ public class OpenEntityStatistics implements OpenEntityStatisticsMBean {
 
 	/**
 	 * {@inheritDoc}
-	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getCategoryName()
+	 * @see org.helios.jboss7.hibernate.OpenEntityStatisticsMBean#getName()
 	 */
 	@Override
-	public String getCategoryName() {
-		return stats.getCategoryName();
+	public String getName() {
+		return name;
 	}
 
 	/**

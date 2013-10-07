@@ -57,6 +57,12 @@
 		<groupId>com.google.code.gson</groupId>
 		<artifactId>gson</artifactId>
       </dependency>
+      
+      <dependency>
+		<groupId>com.google.guava</groupId>
+		<artifactId>guava</artifactId>
+      </dependency>
+      
     
 
       <dependency>
@@ -97,6 +103,12 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
     </dependency>
+    
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jmx</artifactId>
+    </dependency>
+    
     
     <dependency>
       <groupId>org.hibernate.common</groupId>
