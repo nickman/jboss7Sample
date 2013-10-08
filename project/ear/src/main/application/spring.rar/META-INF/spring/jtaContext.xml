@@ -19,6 +19,7 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 		<property name="transactionManager" ref="jtaTxManager"/>
 		<property name="userTransaction" ref="jtaUserTx"/>
 		<property name="transactionSynchronizationRegistryName" value="java:jboss/TransactionSynchronizationRegistry"/>
+		<property name="userTransactionName" value="java:jboss/UserTransaction"/>
 	</bean>
 	
 	<alias name="txManager" alias="transactionManager"/>

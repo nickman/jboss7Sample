@@ -29,7 +29,7 @@
       <admin-object  class-name="org.apache.activemq.command.ActiveMQQueue" enabled="true" jndi-name="java:jboss/jms/dest/requestQueue" pool-name="ActiveMQQueue" use-java-context="true">
         <config-property name="PhysicalName">REQUEST.QUEUE</config-property>
       </admin-object>
-      <admin-object class-name="org.apache.activemq.command.ActiveMQTopic" enabled="true" jndi-name="java:jboss/jms/dest/clearingTopic" pool-name="ActiveMQTopic" use-java-context="true">
+      <admin-object class-name="org.apache.activemq.command.ActiveMQTopic" enabled="true" jndi-name="java:jboss/jms/dest/${queuex:clearingTopic}" pool-name="ActiveMQTopic" use-java-context="true">
         <config-property name="PhysicalName">CLEARING.TOPIC</config-property>
       </admin-object>
     </admin-objects>

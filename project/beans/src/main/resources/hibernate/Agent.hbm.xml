@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 27, 2012 1:30:47 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
  <class catalog="DB" name="org.helios.jboss7.hibernate.domain.Agent" 
   schema="PUBLIC" table="AGENT">
@@ -43,15 +46,17 @@
    </column>
   </property>
  </class>
- <query read-only="true"  name="agentForHost">from Agent as a where a.name = :agentName and a.host.hostId = :hostId
+ 
+ <query read-only="true"  name="agentForHost">from Agent a where a.name = :agentName and a.host.hostId = :hostId
  	<query-param name="agentName" type="java.lang.String"/>
  	<query-param name="hostId" type="java.lang.Integer"/>
  </query>
  
- <query read-only="true" name="agentsByHost">from Agent as a where a.host.hostId = :hostId
+ <query read-only="true" name="agentsByHost">from Agent a where a.host.hostId = :hostId
  	<query-param name="hostId" type="java.lang.Integer"/>
  </query>
- <query read-only="true" name="upAgentsByHost">from Agent as a where a.host.hostId = :hostId and connected is not null
+ <query read-only="true" name="upAgentsByHost">from Agent a where a.host.hostId = :hostId and connected is not null
  	<query-param name="hostId" type="java.lang.Integer"/>
  </query>
+ 
 </hibernate-mapping>
