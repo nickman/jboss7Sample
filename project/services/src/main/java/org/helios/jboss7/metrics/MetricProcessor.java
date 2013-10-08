@@ -25,10 +25,9 @@
 package org.helios.jboss7.metrics;
 
 import java.lang.management.ManagementFactory;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import org.apache.log4j.Logger;
 import org.helios.jboss7.hibernate.domain.Agent;
@@ -40,9 +39,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 /**
  * <p>Title: MetricProcessor</p>
@@ -63,20 +61,20 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 	/** Instance logger */
 	protected final Logger log = Logger.getLogger(getClass());
 	/** Metric host cache */
-	protected LoadingCache<String, Host> hostCache;
+	protected Cache<String, Host> hostCache;
 	/** Metric agent cache */
-	protected LoadingCache<String, Agent> agentCache;
+	protected Cache<String, Agent> agentCache;
 	/** Metric cache */
-	protected LoadingCache<String, Metric> metricCache;
+	protected Cache<String, Metric> metricCache;
+	
+	/** The cache metric locator callback used to locate a metric when it is requested from cache */
+	protected Callable<Metric> metricLocator = null;
 	
 	/** TraceType cache */
-	protected final Map<Short, TraceType> traceTypeCache = new HashMap<Short, TraceType>(); 
+	protected final Map<Short, TraceType> traceTypeCache = new HashMap<>(); 
 	
 	/** The core count for this JVM */
 	public static final int CORES = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
-	
-	/** The in-state metric */
-	private static final ThreadLocal<InputMetric> currentMetric = new ThreadLocal<InputMetric>(); 
 	
 	/**
 	 * {@inheritDoc}
@@ -87,19 +85,41 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 	public void process(CharSequence metricInstance) {
 		if(metricInstance==null) throw new IllegalArgumentException("The passed metric instance was null");
 		try {
-			InputMetric metric = new InputMetric(metricInstance);
-			log.info("Processing InputMetric [" + metric.toString() + "]");
-			currentMetric.set(metric);
-			log.info("Processing Host:" + hostCache.get(metric.host));
-			log.info("Processing Agent:" + agentCache.get(metric.getAgentKey()));
-			log.info("Processing Metric:" + metricCache.get(metric.getMetricKey()));
+			InputMetric im = new InputMetric(metricInstance);
+			log.info("Processing InputMetric [" + im.toString() + "]");
+			metricCache.get(im.getMetricKey(), getMetricLocator(im));
 		} catch (Exception ex) {
 			String msg = "Failed to process metric instance [" + metricInstance + "]";
 			log.error(msg, ex);
 			throw new RuntimeException(msg, ex);
 		} finally {
-			currentMetric.remove();
 		}
+	}
+	
+	/**
+	 * Creates the cache callback metric locator which will cascade upwards to the agent and metric locators if they're not populated
+	 * @param im The input metric
+	 * @return the metric locator cache callback
+	 */
+	protected Callable<Metric> getMetricLocator(final InputMetric im) {
+		return new Callable<Metric>() {
+			Agent agent = null;
+			Host host = null;
+			@Override
+			public Metric call() throws Exception {
+				agent = agentCache.get(im.getAgentKey(), new Callable<Agent>() {
+					public Agent call() throws Exception {
+						host = hostCache.get(im.getHostKey(), new Callable<Host>(){
+							public Host call() throws Exception {
+								return metricLoader.loadHost(im.host, im.domain);
+							}
+						});
+						return metricLoader.loadAgent(im.agent, (short)im.namespace.length(), host);
+					}
+				});
+				return metricLoader.loadMetric(im.name, im.namespace, im.fragments, traceTypeCache.get(im.type), agent);
+			}
+		};
 	}
 	/**
 	 * {@inheritDoc}
@@ -115,69 +135,17 @@ public class MetricProcessor implements InitializingBean, IMetricProcessor {
 				.concurrencyLevel(CORES * 2)
 				.recordStats()
 				.softValues()
-				.build(new CacheLoader<String, Host>(){
-					@Override
-					public Host load(String key) throws Exception {
-						String[] nameDomain = Host.splitHostName(key);
-						Host host = metricLoader.loadHost(nameDomain[0], nameDomain[1]);
-						if(host==null) {
-							Date now = new Date();
-														
-							host = new Host(nameDomain[0], nameDomain[1], now, now, 1);
-							host = metricLoader.save(host);
-							log.info("Saved Host:\n\t" + host);							
-						}						
-						currentMetric.get().hostId = host.getHostId();
-						return host;
-					}					
-				});
+				.build();
 		agentCache = CacheBuilder.newBuilder()
 				.concurrencyLevel(CORES * 2)
 				.recordStats()
 				.softValues()
-				.build(new CacheLoader<String, Agent>(){
-					@Override
-					public Agent load(String key) throws Exception {
-						Agent agent = metricLoader.loadAgent(currentMetric.get().agent, currentMetric.get().hostId);
-						if(agent==null) {
-							Date now = new Date();
-							String[] nameDomain = Host.splitHostName(key);
-							
-							agent = new Agent(hostCache.getIfPresent(currentMetric.get().host), currentMetric.get().agent, now, now, (short)currentMetric.get().fragments.length);
-							agent.setHost(hostCache.get(nameDomain[0] + ":" + nameDomain[1]));
-							agent = metricLoader.save(agent);
-							log.info("Saved Agent:\n\t" + agent);							
-						}						
-						currentMetric.get().agentId = agent.getAgentId();
-						return agent;
-					}					
-				});
+				.build();
 		metricCache = CacheBuilder.newBuilder()
 				.concurrencyLevel(CORES * 2)
 				.recordStats()
 				.softValues()
-				.build(new CacheLoader<String, Metric>(){
-					@Override
-					public Metric load(String key) throws Exception {
-						Metric metric = metricLoader.loadMetric(currentMetric.get().namespace, currentMetric.get().agentId);
-						if(metric==null) {
-							Date now = new Date();
-							InputMetric im = currentMetric.get();
-							Agent agent = agentCache.get(im.getAgentKey());
-							metric = new Metric(traceTypeCache.get(im.type), agentCache.get(im.getAgentKey()),
-									im.namespace, im.fragments, im.fragments.length, im.name, now, (byte)1, now, null
-							);
-							metric.setAgent(agent);
-							metric = metricLoader.save(metric);
-							log.info("Saved Metric:\n\t" + metric);
-							im.metricId = metric.getMetricId();
-
-						}						
-						return metric;
-					}					
-				});
- 
-		
+				.build();
 		log.info("MetricProcessor Initialized");
 	}
 	

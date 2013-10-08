@@ -25,6 +25,7 @@
 package org.helios.jboss7.metrics;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.helios.jboss7.hibernate.domain.Agent;
@@ -61,33 +62,50 @@ public class MetricLoader {
 	/**
 	 * Attempts to locate the agent with the passed name with the passed host id
 	 * @param name The agent name
-	 * @param hostId The host id
+	 * @param minFragmentLength The length of the agent's namespace
+	 * @param host The agent's parent host
 	 * @return the located agent or null if one was not found
 	 */
 	@Transactional(readOnly=true, rollbackFor=Throwable.class)
-	public Agent loadAgent(String name, int hostId) {
+	public Agent loadAgent(String name, short minFragmentLength, Host host) {
 		if(name==null) throw new IllegalArgumentException("The passed agent name was null");
-		if(hostId<1) throw new IllegalArgumentException("The passed hostId [" + hostId + "] was invalid");
+		if(host==null) throw new IllegalArgumentException("The passed host was null");
+		Agent agent = null;
 		Query query = sessionFactory.getCurrentSession().getNamedQuery(AGENT_RESOLVER);
 		query.setString("agentName", name);
-		query.setInteger("hostId", hostId);
-		return (Agent)query.uniqueResult();
+		query.setInteger("hostId", host.getHostId());
+		agent = (Agent)query.uniqueResult();
+		if(agent==null) {
+			Date now = new Date();			
+			agent = new Agent(host, name, now, now, minFragmentLength);
+			sessionFactory.getCurrentSession().save(agent);
+		}
+		return agent;
 	}
 	
 	/**
 	 * Attempts to locate the metric with the passed namespace and the passed agent id
-	 * @param name The metric namespace
-	 * @param agentId The agent id
+	 * @param name The metric name
+	 * @param namespace The metric namespace
+	 * @param fragments  The parsed namespace array items
+	 * @param metricType The metric type
+	 * @param agent The metric's parent agent
 	 * @return the located metric or null if one was not found
 	 */
 	@Transactional(readOnly=true, rollbackFor=Throwable.class)
-	public Metric loadMetric(String name, int agentId) {
+	public Metric loadMetric(String name, String namespace, String[] fragments, TraceType metricType, Agent agent) {
 		if(name==null) throw new IllegalArgumentException("The passed agent name was null");
-		if(agentId<1) throw new IllegalArgumentException("The passed agentId [" + agentId + "] was invalid");
+		if(agent==null) throw new IllegalArgumentException("The passed agent was null");
 		Query query = sessionFactory.getCurrentSession().getNamedQuery(METRIC_RESOLVER);
 		query.setString("namespace", name);
-		query.setInteger("agentId", agentId);
-		return (Metric)query.uniqueResult();
+		query.setInteger("agentId", agent.getAgentId());
+		Metric metric = (Metric)query.uniqueResult();
+		if(metric==null) {
+			Date now = new Date();
+			metric = new Metric(metricType, agent, namespace, fragments, fragments.length, name, now, (byte)1, now, null);
+			sessionFactory.getCurrentSession().save(metric);
+		}
+		return metric;
 	}
 	
 	@Transactional(readOnly=true, rollbackFor=Throwable.class)
@@ -102,13 +120,20 @@ public class MetricLoader {
 	 * @return the located host or null if one was not found
 	 */
 	@Transactional(readOnly=true, rollbackFor=Throwable.class)
-	public Host loadHost(String name, String domain) {
+	public Host loadHost(String name, String domain) {		
 		if(name==null) throw new IllegalArgumentException("The passed host name was null");
 		if(domain==null) throw new IllegalArgumentException("The passed domain name was null");
+		Host host = null;
 		Query query = sessionFactory.getCurrentSession().getNamedQuery(HOST_RESOLVER);
 		query.setString("name", name);
 		query.setString("domain", domain);
-		return (Host)query.uniqueResult();
+		host = (Host)query.uniqueResult();
+		if(host==null) {
+			Date now = new Date();
+			host = new Host(name, domain, now, now, 1);
+			sessionFactory.getCurrentSession().save(host);
+		}
+		return host;
 	}
 	
 

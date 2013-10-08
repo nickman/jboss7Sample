@@ -27,6 +27,8 @@ package org.helios.jboss7.metrics;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.helios.jboss7.hibernate.domain.Host;
+
 /**
  * <p>Title: InputMetric</p>
  * <p>Description: Lightweight input representation</p> 
@@ -42,6 +44,9 @@ public class InputMetric {
 	public static final Pattern NAMESPACE_SPLITTER = Pattern.compile("\\/");
 	/** The metric expression format */
 	public static final String FORMAT = "%s:%s:%s:%s:%s";
+	/** The host key expression format */
+	public static final String HOST_KEY = "%s:%s";
+	
 	/** The agent key expression format */
 	public static final String AGENT_KEY = "%s:%s";
 	/** The metric key expression format */
@@ -61,6 +66,11 @@ public class InputMetric {
 	
 	/** The host name */
 	public final String host;
+	/** The host's domain name */
+	public final String domain;
+	/** The host's fully qualified name */
+	public final String fqn;
+	
 	/** The agent name */
 	public final String agent;
 	/** The full metric name space */
@@ -80,7 +90,15 @@ public class InputMetric {
 	public int agentId = -1;
 	/** The metric id (pk) */
 	public long metricId = -1;
-	
+
+	/**
+	 * Returns the host cache key
+	 * @return the host cache key
+	 */
+	public String getHostKey() {
+		return fqn;
+	}
+
 	/**
 	 * Returns the agent cache key
 	 * @return the agent cache key
@@ -105,7 +123,10 @@ public class InputMetric {
 		if(fullName==null) throw new IllegalArgumentException("The passed name was null");
 		Matcher matcher = METRIC_PATTERN.matcher(fullName.toString().trim());
 		if(!matcher.matches()) throw new IllegalArgumentException("The passed name [" + fullName + "] was not a recognized metric pattern");
-		host = matcher.group(GROUP_HOST);
+		String[] hostDomain = Host.splitHostName(matcher.group(GROUP_HOST));
+		host = hostDomain[0];
+		domain = hostDomain[1];
+		fqn = hostDomain[1] + "." + hostDomain[0];
 		agent = matcher.group(GROUP_AGENT);
 		namespace = matcher.group(GROUP_NAMESPACE);
 		type = Short.parseShort(matcher.group(GROUP_TYPE));
